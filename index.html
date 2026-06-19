@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Notes</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .hero {
+      padding: 5rem var(--px) 4rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      background-image:
+        linear-gradient(rgba(0,255,65,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,65,.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: -1px -1px;
+    }
+    .hero-label {
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 1.5rem;
+    }
+    .hero-label::before { content: '# '; color: var(--accent); }
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.04; letter-spacing: -.02em;
+      color: #fff; margin-bottom: 1.5rem; font-weight: 700;
+    }
+    .hero-title .hi { color: var(--accent); }
+    .hero-desc { color: var(--muted); font-size: 14px; max-width: 460px; line-height: 1.75; }
+
+    .topics-section { padding: 4rem var(--px); max-width: var(--max-w); margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .topic-card { text-decoration: none !important; color: inherit; display: block; }
+    .topic-id { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
+    .topic-icon { font-size: 1.75rem; margin-bottom: .75rem; display: block; }
+    .topic-name { font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: -.01em; margin-bottom: .5rem; }
+    .topic-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .topic-meta { display: flex; gap: 1.25rem; font-size: 11px; color: var(--dim); }
+    .topic-meta strong { color: var(--accent); }
+    .topic-arrow {
+      position: absolute; bottom: 1.75rem; right: 1.75rem;
+      font-size: 1.1rem; color: var(--dim);
+      transition: color 180ms, transform 180ms;
+    }
+    .card:hover .topic-arrow { color: var(--accent); transform: translate(3px, -3px); }
+
+    .recent-section { padding: 4rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">security_notes</a>
+  <ul class="nav-links">
+    <li><a href="web-attacks/index.html">Web Attacks</a></li>
+    <li><a href="cve/index.html">CVE</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-label">Research / Knowledge Base</p>
+  <h1 class="hero-title">
+    SECURITY<br>
+    <span class="hi">RESEARCH</span><br>
+    NOTES<span class="cursor"></span>
+  </h1>
+  <p class="hero-desc">
+    Tổng hợp kiến thức bảo mật web — phân tích các kiểu tấn công
+    và nghiên cứu lỗ hổng CVE thực tế.
+  </p>
+</section>
+
+<section class="topics-section">
+  <div class="sec-hd">
+    <h2>Chủ đề</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="grid-2">
+    <a class="card topic-card" href="web-attacks/index.html">
+      <div class="topic-id">01 / WEB_ATTACKS</div>
+      <span class="topic-icon">⚔️</span>
+      <div class="topic-name">Web Attacks</div>
+      <p class="topic-desc">
+        XSS, SQLi, SSRF, CSRF, Injection, Broken Auth
+        — cơ chế hoạt động và cách khai thác.
+      </p>
+      <div class="topic-meta">
+        <div>Posts: <strong>0</strong></div>
+        <div>Categories: <strong>5</strong></div>
+      </div>
+      <span class="topic-arrow">↗</span>
+    </a>
+
+    <a class="card topic-card" href="cve/index.html">
+      <div class="topic-id">02 / CVE_DATABASE</div>
+      <span class="topic-icon">🐛</span>
+      <div class="topic-name">CVE</div>
+      <p class="topic-desc">
+        Phân tích lỗ hổng CVE thực tế — root cause,
+        impact, exploit và patch analysis.
+      </p>
+      <div class="topic-meta">
+        <div>Entries: <strong>0</strong></div>
+        <div>Critical: <strong style="color:var(--red)">0</strong></div>
+      </div>
+      <span class="topic-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<section class="recent-section">
+  <div class="sec-hd">
+    <h2>Bài viết gần đây</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="empty">
+    <p>Chưa có bài viết nào. Tạo file .md trong web-attacks/ hoặc cve/ để bắt đầu.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-note">Tất cả nội dung mang mục đích học tập và nghiên cứu bảo mật</span>
+  <span>2024 — security_notes</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVE — Security Notes</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .page-hero {
+      padding: 3rem var(--px) 2.5rem;
+      max-width: var(--max-w); margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; letter-spacing: -.02em; color: #fff;
+      margin-bottom: .5rem; line-height: 1.1;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--muted); font-size: 13px; max-width: 520px; line-height: 1.7; }
+
+    .content { padding: 3rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 640px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+
+    .stat-card {
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 1rem 1.25rem;
+    }
+    .stat-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: .4rem; }
+    .stat-val { font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1; }
+    .stat-val.critical { color: var(--red); }
+    .stat-val.high     { color: var(--orange); }
+    .stat-val.medium   { color: var(--yellow); }
+
+    .tbl-wrap { border: 1px solid var(--border); margin-bottom: 3rem; }
+
+    .cvss-bar {
+      display: inline-block; height: 4px; border-radius: 2px;
+      background: var(--border-2); vertical-align: middle;
+      position: relative; overflow: hidden; width: 60px;
+    }
+    .cvss-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand">security_notes</a>
+  <ul class="nav-links">
+    <li><a href="../web-attacks/index.html">Web Attacks</a></li>
+    <li><a href="index.html" class="active">CVE</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../index.html">~/security_notes</a>
+  <span class="sep">/</span>
+  <span>cve</span>
+</div>
+
+<div class="page-hero">
+  <h1 class="page-title"><span>CVE</span> Database<span class="cursor"></span></h1>
+  <p class="page-desc">
+    Phân tích lỗ hổng CVE thực tế — root cause, impact, timeline và patch analysis.
+  </p>
+</div>
+
+<div class="content">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total</div>
+      <div class="stat-val">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Critical</div>
+      <div class="stat-val critical">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">High</div>
+      <div class="stat-val high">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Medium</div>
+      <div class="stat-val medium">0</div>
+    </div>
+  </div>
+
+  <!-- Critical / High -->
+  <div class="sec-hd">
+    <h2>Critical &amp; High</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>CVE ID</th>
+          <th>Sản phẩm</th>
+          <th>CVSS</th>
+          <th>Severity</th>
+          <th>Bài viết</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="5">
+            <div class="empty" style="border:none; padding:1.5rem 1rem;">
+              <p>Chưa có entry nào. Thêm CVE vào đây khi có bài phân tích.</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Medium -->
+  <div class="sec-hd">
+    <h2>Medium</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>CVE ID</th>
+          <th>Sản phẩm</th>
+          <th>CVSS</th>
+          <th>Severity</th>
+          <th>Bài viết</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="5">
+            <div class="empty" style="border:none; padding:1.5rem 1rem;">
+              <p>Chưa có entry nào.</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Template -->
+  <div class="sec-hd" style="margin-top:1rem;">
+    <h2>Cấu trúc bài viết gợi ý</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="card" style="font-size:12px; color:var(--muted); line-height:2;">
+    <div style="color:var(--dim); margin-bottom:.5rem;">// cve-template.md</div>
+    <div><span style="color:var(--accent)">#</span> Thông tin — CVE ID · CVSS · Sản phẩm · Phiên bản</div>
+    <div><span style="color:var(--accent)">#</span> Root Cause</div>
+    <div><span style="color:var(--accent)">#</span> Timeline</div>
+    <div><span style="color:var(--accent)">#</span> Phân tích kỹ thuật</div>
+    <div><span style="color:var(--accent)">#</span> PoC</div>
+    <div><span style="color:var(--accent)">#</span> Patch / Mitigation</div>
+    <div><span style="color:var(--accent)">#</span> Tham khảo</div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span class="footer-note">Tất cả nội dung mang mục đích học tập và nghiên cứu bảo mật</span>
+  <a href="../index.html" style="color:var(--dim); font-size:11px;">← Về trang chính</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Attacks — Security Notes</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .page-hero {
+      padding: 3rem var(--px) 2.5rem;
+      max-width: var(--max-w); margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; letter-spacing: -.02em; color: #fff;
+      margin-bottom: .5rem; line-height: 1.1;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--muted); font-size: 13px; max-width: 520px; line-height: 1.7; }
+
+    .content { padding: 3rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+
+    .cat-section { margin-bottom: 3rem; }
+    .cat-label {
+      display: inline-block; font-size: 10px; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+      border-left: 2px solid var(--accent); padding-left: .6rem;
+    }
+    .cat-table-wrap { border: 1px solid var(--border); }
+
+    .entry-link { color: var(--text) !important; transition: color 150ms; }
+    .entry-link:hover { color: var(--accent) !important; text-decoration: none; }
+
+    .tag {
+      display: inline-block; padding: 1px 5px;
+      font-size: 10px; letter-spacing: .06em;
+      border: 1px solid var(--border-2); color: var(--dim);
+      border-radius: 2px; font-family: var(--mono);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand">security_notes</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Web Attacks</a></li>
+    <li><a href="../cve/index.html">CVE</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../index.html">~/security_notes</a>
+  <span class="sep">/</span>
+  <span>web-attacks</span>
+</div>
+
+<div class="page-hero">
+  <h1 class="page-title">Web <span>Attacks</span><span class="cursor"></span></h1>
+  <p class="page-desc">
+    Tổng hợp các kiểu tấn công web phổ biến — cơ chế hoạt động, ví dụ thực tế và cách phòng chống.
+  </p>
+</div>
+
+<div class="content">
+
+  <!-- Injection -->
+  <div class="cat-section">
+    <div class="sec-hd">
+      <span class="cat-label">Injection</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cat-table-wrap">
+      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+        <p>Chưa có bài viết. Tạo file trong web-attacks/ để thêm.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth & Session -->
+  <div class="cat-section">
+    <div class="sec-hd">
+      <span class="cat-label">Broken Auth &amp; Session</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cat-table-wrap">
+      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+        <p>Chưa có bài viết.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- XSS -->
+  <div class="cat-section">
+    <div class="sec-hd">
+      <span class="cat-label">XSS &amp; Client-side</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cat-table-wrap">
+      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+        <p>Chưa có bài viết.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SSRF / CSRF -->
+  <div class="cat-section">
+    <div class="sec-hd">
+      <span class="cat-label">SSRF / CSRF</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cat-table-wrap">
+      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+        <p>Chưa có bài viết.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logic Flaws -->
+  <div class="cat-section">
+    <div class="sec-hd">
+      <span class="cat-label">Logic &amp; Business Flaws</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="cat-table-wrap">
+      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+        <p>Chưa có bài viết.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template bài viết -->
+  <div class="sec-hd" style="margin-top: 1rem;">
+    <h2>Cấu trúc bài viết gợi ý</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="card" style="font-size:12px; color:var(--muted); line-height:2;">
+    <div style="color:var(--dim); margin-bottom:.5rem;">// template.md</div>
+    <div><span style="color:var(--accent)">#</span> Tổng quan</div>
+    <div><span style="color:var(--accent)">#</span> Cơ chế tấn công</div>
+    <div><span style="color:var(--accent)">#</span> Ví dụ thực tế / PoC</div>
+    <div><span style="color:var(--accent)">#</span> Cách phòng chống</div>
+    <div><span style="color:var(--accent)">#</span> Tham khảo</div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span class="footer-note">Tất cả nội dung mang mục đích học tập và nghiên cứu bảo mật</span>
+  <a href="../index.html" style="color:var(--dim); font-size:11px;">← Về trang chính</a>
+</footer>
+
+</body>
+</html>
