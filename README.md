@@ -15,9 +15,10 @@ Nhật ký học pentest của mình. Ghi lại để ôn tập, chia sẻ phòn
 
 ## Bài viết gần đây
 
-<!-- Cập nhật thủ công khi thêm bài mới -->
-
-_Chưa có bài viết nào._
+| CVE ID | Sản phẩm | CVSS | Tóm tắt |
+|---|---|---|---|
+| [CVE-2025-68613](./cve/CVE-2025-68613/) | n8n | 9.9 | Expression injection → RCE trong workflow automation |
+| [CVE-2024-50379](./cve/CVE-2024-50379/) | Apache Tomcat | 9.8 | TOCTOU race condition → RCE qua JSP upload |
 
 ---
 
