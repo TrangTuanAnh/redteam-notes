@@ -10,6 +10,7 @@ Nhật ký học pentest của mình. Ghi lại để ôn tập, chia sẻ phòn
 |---|---|---|
 | ⚔️ | [Web Attacks](./web-attacks/README.md) | Các kiểu tấn công web phổ biến |
 | 🐛 | [CVE](./cve/README.md) | Phân tích lỗ hổng CVE thực tế |
+| 🤖 | [AI](./ai/README.md) | Mô hình, bảo mật AI và ứng dụng trong nghiên cứu |
 
 ---
 

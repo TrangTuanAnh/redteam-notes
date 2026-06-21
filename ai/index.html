@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI — Security Notes</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .page-hero {
+      padding: 3rem var(--px) 2.5rem;
+      max-width: var(--max-w); margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; letter-spacing: -.02em; color: #fff;
+      margin-bottom: .5rem; line-height: 1.1;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--muted); font-size: 13px; max-width: 520px; line-height: 1.7; }
+
+    .content { padding: 3rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 640px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+
+    .stat-card {
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 1rem 1.25rem;
+    }
+    .stat-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: .4rem; }
+    .stat-val { font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1; }
+    .stat-val.accent { color: var(--accent); }
+
+    .tbl-wrap { border: 1px solid var(--border); margin-bottom: 3rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-brand">security_notes</a>
+  <ul class="nav-links">
+    <li><a href="../web-attacks/index.html">Web Attacks</a></li>
+    <li><a href="../cve/index.html">CVE</a></li>
+    <li><a href="index.html" class="active">AI</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../index.html">~/security_notes</a>
+  <span class="sep">/</span>
+  <span>ai</span>
+</div>
+
+<div class="page-hero">
+  <h1 class="page-title"><span>AI</span> Research<span class="cursor"></span></h1>
+  <p class="page-desc">
+    Ghi chép về AI — các mô hình, kỹ thuật tấn công, bảo mật và ứng dụng trong nghiên cứu.
+  </p>
+</div>
+
+<div class="content">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total</div>
+      <div class="stat-val">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Models</div>
+      <div class="stat-val accent">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Attacks</div>
+      <div class="stat-val accent">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Tools</div>
+      <div class="stat-val accent">0</div>
+    </div>
+  </div>
+
+  <!-- Entries -->
+  <div class="sec-hd">
+    <h2>Bài viết</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Chủ đề</th>
+          <th>Bài viết</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3">
+            <div class="empty" style="border:none; padding:1.5rem 1rem;">
+              <p>Chưa có bài viết nào.</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span class="footer-note">Tất cả nội dung mang mục đích học tập và nghiên cứu</span>
+  <a href="../index.html" style="color:var(--dim); font-size:11px;">← Về trang chính</a>
+</footer>
+
+</body>
+</html>
