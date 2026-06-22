@@ -36,6 +36,8 @@ Link paper tham khảo: <https://aclanthology.org/D19-1488/>
 
 #### Xây dựng mạng thông tin dị thể (HIN - Heterogeneous Information Network)
 
+![alt text](images/README/image-1.png)
+
 - Tác giả thay vì coi văn bản là 1 chuỗi từ thì họ xây một đồ thị chứa 3 loại node khác nhau:
   - **Nút Văn bản (Document - $D$)**: Chính là các đoạn văn bản ngắn cần phân loại.
   - **Nút Chủ đề (Topic - $T$)**: Trích xuất thông qua mô hình LDA. Một văn bản sẽ nối với các chủ đề mà nó có xác suất thuộc về cao nhất.
@@ -55,7 +57,7 @@ Link paper tham khảo: <https://aclanthology.org/D19-1488/>
   - **Chú ý cấp loại (Type-level Attention)**: Xác định xem đối với nút hiện tại, loại thông tin nào (Văn bản, Chủ đề, hay Thực thể) là quan trọng hơn. (Ví dụ: Đối với một văn bản thể thao, loại nút "Thực thể" chứa tên vận động viên có thể được ưu tiên hơn loại nút "Chủ đề" chung chung).
   - **Chú ý cấp nút (Node-level Attention)**: Sau khi biết *loại* nào quan trọng hơn, cơ chế này tiếp tục xác định trong cùng một loại thì *nút nào cụ thể* đáng được chú ý hơn. Ví dụ, trong nhóm Thực thể, "Atlanta Braves" (đội bóng chày) hay "Dodger Stadium" (sân vận động) sẽ được ưu tiên hơn "Los Angeles" (tên thành phố — quá chung, ít thông tin thể thao hơn). Trọng số node-level này được nhân với trọng số type-level trước đó, tạo thành trọng số cuối cùng cho mỗi nút lân cận.
 
-- Hai cơ chế này kết hợp lại thay thế trực tiếp vào công thức tích chập đồ thị, khiến mỗi bước lan truyền thông tin đều có chọn lọc theo cả hai chiều: chọn đúng loại thông tin, rồi chọn đúng thông tin trong loại đó.
+> Hai cơ chế này kết hợp lại thay thế trực tiếp vào công thức tích chập đồ thị, khiến mỗi bước lan truyền thông tin đều có chọn lọc theo cả hai chiều: chọn đúng loại thông tin, rồi chọn đúng thông tin trong loại đó.
 
 ---
 
@@ -77,7 +79,7 @@ Thực nghiệm được tiến hành trên 6 bộ dữ liệu benchmark ngắn:
 - HGAT vượt trội tất cả baseline trên cả 6 dataset với mức chênh lệch đáng kể (p < 0.01 theo t-test).
 - Điểm nổi bật: trên **Snippets** (văn bản snippet tìm kiếm web, rất ngắn), HGAT đạt 82.36% trong khi TextGCN chỉ đạt 77.82% — cải thiện hơn 4.5 điểm.
 
-### Ablation study — từng thành phần đóng góp bao nhiêu?
+### Từng thành phần đóng góp bao nhiêu?
 
 Tác giả thử lần lượt tắt từng thành phần để kiểm chứng vai trò của chúng:
 
@@ -107,7 +109,3 @@ Tác giả thử lần lượt tắt từng thành phần để kiểm chứng v
   - Phụ thuộc vào công cụ bên ngoài (TAGME để nhận dạng thực thể, LDA để trích chủ đề) — chất lượng của các công cụ này ảnh hưởng trực tiếp đến chất lượng đồ thị đầu vào.
   - Ngưỡng cosine similarity $\delta = 0.5$ để nối các thực thể được chọn theo validation set — chưa rõ tính ổn định khi áp dụng sang domain hoàn toàn khác.
   - Thực nghiệm chỉ trên tiếng Anh; hiệu quả trên ngôn ngữ hình thái phong phú hơn (như tiếng Việt, tiếng Ả-rập) chưa được kiểm chứng.
-
----
-
-*Tham khảo: [Hu et al., 2019 — Heterogeneous Graph Attention Networks for Semi-supervised Short Text Classification](https://aclanthology.org/D19-1488/)*
