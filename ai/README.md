@@ -10,4 +10,5 @@ Ghi chép về AI — các mô hình, kỹ thuật tấn công, bảo mật và 
 
 | Tiêu đề | Chủ đề | Bài viết |
 |---|---|---|
-| _Chưa có_ | | |
+| [HGAT](./HGAT/) | Heterogeneous Graph Attention Network — phân loại văn bản ngắn bán giám sát | [Đọc →](./HGAT/) |
+| [GNN](./GNN/) | Graph Neural Network — nền tảng cần đọc trước HGAT | [Đọc →](./GNN/) |

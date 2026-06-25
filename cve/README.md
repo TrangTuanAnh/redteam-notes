@@ -12,3 +12,9 @@ Phân tích các lỗ hổng CVE thực tế — root cause, cơ chế khai thá
 |---|---|---|---|
 | [CVE-2025-68613](./CVE-2025-68613/) | n8n | 9.9 | Expression injection → RCE trong workflow automation |
 | [CVE-2024-50379](./CVE-2024-50379/) | Apache Tomcat | 9.8 | TOCTOU race condition → RCE qua JSP upload |
+
+## High
+
+| CVE ID | Sản phẩm | CVSS | Bài viết |
+|---|---|---|---|
+| [CVE-2026-46300](./CVE-2026-46300/) | Linux kernel | 7.8 | Fragnesia: page-cache write → local root qua XFRM ESP-in-TCP |

@@ -33,17 +33,10 @@
     .topics-section { padding: 4rem var(--px); max-width: var(--max-w); margin: 0 auto; border-bottom: 1px solid var(--border); }
     .topic-card { text-decoration: none !important; color: inherit; display: block; }
     .topic-id { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
-    .topic-icon { font-size: 1.75rem; margin-bottom: .75rem; display: block; }
     .topic-name { font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: -.01em; margin-bottom: .5rem; }
     .topic-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
     .topic-meta { display: flex; gap: 1.25rem; font-size: 11px; color: var(--dim); }
     .topic-meta strong { color: var(--accent); }
-    .topic-arrow {
-      position: absolute; bottom: 1.75rem; right: 1.75rem;
-      font-size: 1.1rem; color: var(--dim);
-      transition: color 180ms, transform 180ms;
-    }
-    .card:hover .topic-arrow { color: var(--accent); transform: translate(3px, -3px); }
 
     .recent-section { padding: 4rem var(--px); max-width: var(--max-w); margin: 0 auto; }
   </style>
@@ -80,7 +73,6 @@
   <div class="grid-3">
     <a class="card topic-card" href="web-attacks/index.html">
       <div class="topic-id">01 / WEB_ATTACKS</div>
-      <span class="topic-icon">⚔️</span>
       <div class="topic-name">Web Attacks</div>
       <p class="topic-desc">
         XSS, SQLi, SSRF, CSRF, Injection, Broken Auth
@@ -90,36 +82,31 @@
         <div>Posts: <strong>0</strong></div>
         <div>Categories: <strong>5</strong></div>
       </div>
-      <span class="topic-arrow">↗</span>
     </a>
 
     <a class="card topic-card" href="cve/index.html">
       <div class="topic-id">02 / CVE_DATABASE</div>
-      <span class="topic-icon">🐛</span>
       <div class="topic-name">CVE</div>
       <p class="topic-desc">
         Phân tích lỗ hổng CVE thực tế — root cause,
         impact, exploit và patch analysis.
       </p>
       <div class="topic-meta">
-        <div>Entries: <strong>0</strong></div>
-        <div>Critical: <strong style="color:var(--red)">0</strong></div>
+        <div>Entries: <strong>3</strong></div>
+        <div>Critical: <strong style="color:var(--red)">2</strong></div>
       </div>
-      <span class="topic-arrow">↗</span>
     </a>
 
     <a class="card topic-card" href="ai/index.html">
       <div class="topic-id">03 / AI_RESEARCH</div>
-      <span class="topic-icon">🤖</span>
       <div class="topic-name">AI</div>
       <p class="topic-desc">
         Mô hình, prompt injection, adversarial attacks
         — bảo mật AI và ứng dụng trong nghiên cứu.
       </p>
       <div class="topic-meta">
-        <div>Posts: <strong>0</strong></div>
+        <div>Posts: <strong>2</strong></div>
       </div>
-      <span class="topic-arrow">↗</span>
     </a>
   </div>
 </section>
@@ -129,8 +116,49 @@
     <h2>Bài viết gần đây</h2>
     <div class="sec-line"></div>
   </div>
-  <div class="empty">
-    <p>Chưa có bài viết nào. Tạo file .md trong web-attacks/ hoặc cve/ để bắt đầu.</p>
+  <div style="border: 1px solid var(--border);">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Danh mục</th>
+          <th>Tóm tắt</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-family:var(--mono); color:var(--accent);">CVE-2026-46300</td>
+          <td style="color:var(--dim);">CVE</td>
+          <td>Fragnesia — Linux kernel LPE qua page-cache write / XFRM ESP-in-TCP</td>
+          <td><a href="cve/CVE-2026-46300/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono); color:var(--accent);">CVE-2025-68613</td>
+          <td style="color:var(--dim);">CVE</td>
+          <td>n8n expression injection → RCE trong workflow automation</td>
+          <td><a href="cve/CVE-2025-68613/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600;">HGAT</td>
+          <td style="color:var(--dim);">AI</td>
+          <td>Heterogeneous Graph Attention Network — phân loại văn bản ngắn bán giám sát</td>
+          <td><a href="ai/HGAT/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600;">GNN</td>
+          <td style="color:var(--dim);">AI</td>
+          <td>Graph Neural Network — nền tảng cần đọc trước HGAT</td>
+          <td><a href="ai/GNN/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono); color:var(--accent);">CVE-2024-50379</td>
+          <td style="color:var(--dim);">CVE</td>
+          <td>Apache Tomcat TOCTOU race condition → RCE qua JSP upload</td>
+          <td><a href="cve/CVE-2024-50379/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
