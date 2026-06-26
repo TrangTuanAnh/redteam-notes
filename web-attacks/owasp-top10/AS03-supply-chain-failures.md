@@ -2,96 +2,107 @@
 
 [← OWASP Top 10](./README.md)
 
-**Thất bại trong chuỗi cung ứng phần mềm** — hạng mục AS03 trong OWASP Top 10 2025. Trong phiên bản 2021, rủi ro này nằm chung dưới "Vulnerable and Outdated Components". Đến 2025, OWASP tách ra thành hạng mục riêng — phản ánh thực tế rằng supply chain attack đã trở thành một vector tấn công có chủ đích, không chỉ là vấn đề quản lý dependency lỗi thời.
+**Thất bại trong chuỗi cung ứng phần mềm** xảy ra khi ứng dụng phụ thuộc vào các component, thư viện, dịch vụ hoặc model bị xâm phạm, lỗi thời, hoặc chưa được xác minh đúng cách. Điểm yếu không nằm trong code bạn viết — mà nằm trong phần mềm và công cụ bạn tin tưởng. Attacker khai thác những điểm đó để chèn code độc, bypass security, hoặc đánh cắp dữ liệu mà không cần động vào logic ứng dụng của bạn.
 
-Ứng dụng hiện đại không còn là code bạn viết. Nó là code bạn viết cộng với hàng trăm package từ npm/PyPI/Maven, build tool, CI/CD pipeline, container base image, và cloud provider. Mỗi mắt xích trong chuỗi đó là một điểm có thể bị tấn công.
-
----
-
-## Root cause
-
-Đội phát triển thường tin tưởng dependency một cách ngầm định — nếu package đã có trên registry và có nhiều download thì mặc định coi là an toàn. Không verify tính toàn vẹn, không audit source code, không theo dõi khi maintainer thay đổi.
-
-Thêm vào đó, chuỗi dependency ngày càng sâu. Bạn install 5 package trực tiếp nhưng kéo theo hàng trăm transitive dependency. Bề mặt tấn công lớn hơn nhiều so với những gì bạn nhìn thấy trong `package.json`.
+Trong phiên bản 2021, rủi ro này nằm chung dưới "Vulnerable and Outdated Components". Đến 2025, OWASP tách ra thành hạng mục riêng — phản ánh thực tế rằng supply chain attack đã trở thành một vector tấn công có chủ đích với quy mô và độ tinh vi ngày càng tăng.
 
 ---
 
-## Các kiểu tấn công
+## Tại sao quan trọng
 
-**Dependency confusion:** Attacker publish package lên public registry (npm, PyPI) với tên trùng với package nội bộ của công ty nhưng version số cao hơn. Package manager ưu tiên public registry → pull về package độc hại thay vì internal package.
-
-```
-# Internal package: @company/utils v1.0.0 (trên Artifactory nội bộ)
-# Attacker publish: company-utils v9.9.9 (trên npmjs.com)
-# npm install lấy public package vì version cao hơn
-```
-
-**Typosquatting:** Publish package tên gần giống package phổ biến. Developer gõ nhầm một ký tự → cài package độc hại.
-
-```
-requests  →  request (PyPI)
-lodash    →  loadash
-express   →  expres
-```
-
-**Account takeover / maintainer compromise:** Chiếm tài khoản npm/PyPI của maintainer package phổ biến, publish version mới chứa malware. Vụ `event-stream` 2018 là ví dụ kinh điển: maintainer chuyển quyền cho người lạ, người đó inject code đánh cắp crypto wallet vào version mới.
-
-**Malicious package được publish thẳng:** Attacker tạo package mới với description hữu ích, SEO tốt, chờ developer vô tình cài. Thường nhắm vào developer tool (formatter, linter, test helper).
-
-**Build pipeline compromise:** Tấn công vào CI/CD server thay vì package. Inject code vào artifact trong quá trình build mà source code vẫn clean. SolarWinds là ví dụ ở quy mô lớn — attacker modify binary trong build process của SUNBURST.
-
-**Malicious container base image:** Base image trên Docker Hub có thể chứa backdoor. Nhiều image unofficial có malware được cài sẵn.
+Ứng dụng hiện đại được xây dựng từ hàng trăm package, API bên thứ ba, và ngày càng nhiều AI model. Một dependency bị xâm phạm có thể làm tổn hại toàn bộ hệ thống — cho phép attacker truy cập mà không cần chạm vào code của chính bạn. Các cuộc tấn công chuỗi cung ứng thường được tự động hóa và phân tán, khiến chúng đặc biệt khó phát hiện và thiệt hại rất lớn.
 
 ---
 
 ## Ví dụ thực tế
 
-**event-stream (2018):** Package có 2 triệu download/tuần. Maintainer chuyển ownership, kẻ xấu thêm dependency `flatmap-stream` có chứa code obfuscated đánh cắp Bitcoin wallet. Tồn tại trong 2 tháng trước khi bị phát hiện.
+**SolarWinds Orion (2021):** Attacker chèn code độc vào một bản cập nhật đáng tin cậy của SolarWinds Orion, ảnh hưởng đến hàng nghìn tổ chức đã tự động cài bản cập nhật đó — bao gồm nhiều cơ quan chính phủ Mỹ. Đây không phải lỗi trong logic cốt lõi của SolarWinds. Đó là lỗ hổng trong quy trình build, verify và phân phối bản cập nhật. Phần mềm trông hoàn toàn hợp lệ vì nó được ký số bởi chính SolarWinds.
 
-**XZ Utils (2024):** Kẻ tấn công dành 2 năm build trust với project, trở thành maintainer, rồi inject backdoor vào quá trình build của version 5.6.0–5.6.1. Nhắm vào systemd để chiếm SSH trên Linux. Bị phát hiện tình cờ nhờ Andres Freund nhận thấy SSH login chậm bất thường.
+**event-stream (2018):** Package npm có 2 triệu download/tuần. Maintainer chuyển ownership cho người lạ, người đó thêm dependency `flatmap-stream` chứa code obfuscated đánh cắp Bitcoin wallet. Tồn tại 2 tháng trước khi bị phát hiện.
 
-**ua-parser-js (2021):** NPM account của maintainer bị chiếm, 3 version độc hại được publish trong vài giờ, chứa cryptominer và credential stealer. Package có 8 triệu download/tuần.
+**XZ Utils (2024):** Attacker dành 2 năm build trust với project, trở thành maintainer, rồi inject backdoor vào quá trình build của version 5.6.0–5.6.1. Nhắm vào systemd để chiếm SSH trên Linux. Bị phát hiện tình cờ nhờ Andres Freund nhận thấy SSH login chậm bất thường.
+
+**AI/ML model risk:** Dùng model bên thứ ba chưa được kiểm chứng hoặc fine-tune trên dataset có thể chứa hành vi ẩn, backdoor trigger, hoặc output thiên vị làm tổn hại hệ thống hoặc rò rỉ dữ liệu. Với AI pipeline, supply chain không chỉ là code — mà còn là data, weight, và inference infrastructure.
+
+---
+
+## Biểu hiện phổ biến
+
+**Dùng thư viện và dependency chưa được kiểm chứng hoặc không còn được maintain.**
+
+**Tự động cài bản cập nhật mà không verify:** Auto-update tiện lợi nhưng mỗi bản cập nhật là một điểm tin tưởng ngầm. Attacker biết điều này.
+
+**Phụ thuộc quá mức vào AI model bên thứ ba mà không có audit hay giám sát.**
+
+**Build pipeline và CI/CD không được bảo vệ:** Cho phép can thiệp vào quá trình build — attacker không cần modify source code, chỉ cần modify artifact trong pipeline.
+
+**Theo dõi giấy phép và provenance của component kém:** Không biết component đến từ đâu → không biết khi nào nó bị xâm phạm.
+
+**Thiếu monitoring vulnerability trong dependency sau khi đã deploy:** Lỗ hổng được phát hiện sau ngày deploy → không ai biết → hệ thống chạy với component có CVE đã public.
+
+---
+
+## Các kiểu tấn công
+
+**Dependency confusion:** Attacker publish package lên public registry (npm, PyPI) trùng tên với package nội bộ của công ty nhưng version số cao hơn. Package manager ưu tiên public registry → kéo về package độc hại.
+
+```
+# Internal: @company/utils v1.0.0 (Artifactory nội bộ)
+# Attacker publish: company-utils v9.9.9 (npmjs.com public)
+# npm install → lấy public vì version cao hơn
+```
+
+**Typosquatting:** Tên gần giống package phổ biến, chờ developer gõ nhầm.
+
+```
+requests  →  request
+lodash    →  loadash
+express   →  expres
+```
+
+**Account takeover:** Chiếm tài khoản npm/PyPI của maintainer package phổ biến → publish version mới chứa malware → tất cả người dùng auto-update đều bị ảnh hưởng.
+
+**Malicious container base image:** Base image trên Docker Hub chứa backdoor. Image trông hợp lệ, có nhiều pull, nhưng layer ẩn có code độc.
 
 ---
 
 ## Phát hiện
 
 ```bash
-# Kiểm tra integrity với npm audit
+# Kiểm tra vulnerability trong npm dependency
 npm audit
 
-# Verify checksum của package (npm)
-npm pack <package> && shasum -a 256 <package>.tgz
-
-# Python: kiểm tra package với pip-audit
+# Python
 pip-audit
 
-# Tìm dependency không có trong lockfile
+# Tìm dependency không trong lockfile
 npm ls --depth=0
 ```
 
-Theo dõi:
+Theo dõi liên tục:
 - CVE mới cho dependency đang dùng (Dependabot, Renovate, Snyk)
 - Thay đổi maintainer của package quan trọng
-- Spike bất thường trong download/install time của build
+- Spike bất thường trong build time hoặc artifact size
 
 ---
 
 ## Phòng chống
 
-**Lockfile nghiêm ngặt:** Commit `package-lock.json` / `poetry.lock` / `Cargo.lock`. Chỉ update có chủ đích, không để auto-update không kiểm soát.
+**Xác minh tất cả component trước khi dùng:** Thư viện, API bên thứ ba, và đặc biệt là AI model — kiểm tra nguồn gốc, maintainer, lịch sử commit trước khi đưa vào dependency.
 
-**Verify integrity:** npm và yarn hỗ trợ `integrity` field trong lockfile (SRI hash). Không bỏ qua warning khi hash không khớp.
+**Theo dõi và vá dependency thường xuyên:** Đừng chỉ audit lúc onboard — CVE mới xuất hiện sau ngày bạn install.
 
-**Private registry với allowlist:** Chạy Artifactory hoặc Nexus, chỉ cho phép pull từ public registry qua proxy đã được scan. Giải quyết dependency confusion.
+**Ký tên, verify và audit bản cập nhật:** Không auto-update mù. Lockfile nghiêm ngặt (`package-lock.json`, `poetry.lock`, `Cargo.lock`) — chỉ update có chủ đích.
 
-**Scope internal package:** Đặt namespace cho internal package (`@company/name`) và cấu hình registry để scope đó chỉ resolve từ internal registry.
+**Khóa CI/CD pipeline:** Build environment cô lập, không cho phép can thiệp từ ngoài vào artifact trong quá trình build. Verify integrity của output trước khi deploy.
 
-**Tối thiểu hóa dependency:** Mỗi dependency là một rủi ro. Trước khi thêm package mới, cân nhắc xem có thể viết 20 dòng code thay thế không.
+**Theo dõi provenance và giấy phép:** Biết mỗi component đến từ đâu, ai maintain, giấy phép là gì. SLSA framework giúp verify provenance qua toàn bộ pipeline.
 
-**Scan container image:** Dùng Trivy, Grype, hoặc Snyk Container để scan base image và layer trước khi deploy.
+**Private registry với allowlist:** Dùng Artifactory hoặc Nexus, chỉ pull từ public registry qua proxy đã được scan. Giải quyết dependency confusion bằng cách scope internal package (`@company/name`) và cấu hình registry resolve scope đó chỉ từ internal.
 
-**SLSA framework:** Google's Supply-chain Levels for Software Artifacts — framework để verify provenance của artifact qua toàn bộ pipeline.
+**Runtime monitoring:** Phát hiện hành vi bất thường từ dependency hoặc AI component trong lúc chạy — network call lạ, file access bất thường, memory spike.
+
+**Tích hợp supply chain risk vào SDLC:** Đánh giá rủi ro chuỗi cung ứng từ giai đoạn thiết kế, không chỉ là bước cuối trước deploy.
 
 ---
 

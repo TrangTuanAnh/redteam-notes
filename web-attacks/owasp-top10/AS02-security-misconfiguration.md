@@ -2,41 +2,49 @@
 
 [← OWASP Top 10](./README.md)
 
-**Lỗi cấu hình bảo mật** — hạng mục AS02 trong OWASP Top 10 2025. Đây là loại lỗ hổng không đến từ code mà đến từ cách hệ thống được thiết lập, triển khai và duy trì. Phổ biến đến mức có thể gặp ở bất kỳ lớp nào trong stack: web server, application framework, database, container, cloud storage, hay header HTTP.
+**Lỗi cấu hình bảo mật** xảy ra khi hệ thống, máy chủ hoặc ứng dụng được triển khai với các thiết lập mặc định không an toàn, cài đặt chưa đầy đủ, hoặc dịch vụ bị lộ ra ngoài không cần thiết. Đây không phải lỗi trong code — mà là sai sót trong cách môi trường, phần mềm hoặc mạng được thiết lập. Và chính sự phân biệt đó khiến nó dễ bị bỏ qua: developer không thấy vấn đề khi đọc code vì vấn đề không nằm trong code.
 
 ---
 
-## Root cause
+## Tại sao quan trọng
 
-Hệ thống hiện đại có hàng trăm tùy chọn cấu hình. Giá trị mặc định thường được thiết kế cho tiện dụng khi development, không phải cho an toàn khi production. Khi không có quy trình hardening cụ thể, các default đó được giữ nguyên và trở thành bề mặt tấn công.
+Stack hiện đại phức tạp — một ứng dụng production chạm đến Nginx, framework backend, database, Redis, S3, Kubernetes, CI/CD, và hàng loạt API bên thứ ba. Mỗi lớp có cấu hình riêng, và đội ngũ thường chỉ quen với một vài trong số đó. Chỉ cần một admin panel bị lộ, một bucket mở, hay quyền truy cập được cấp sai cũng có thể làm tổn hại toàn bộ hệ thống.
 
-Ngoài ra, stack ngày càng phức tạp — một ứng dụng hiện đại có thể có Nginx, Node.js, Redis, PostgreSQL, S3, Docker, Kubernetes — mỗi lớp đều có cấu hình riêng, và đội ngũ thường chỉ quen với một vài lớp trong số đó.
+Ngay cả cấu hình sai nhỏ cũng có thể dẫn đến: lộ dữ liệu nhạy cảm, leo thang đặc quyền, hoặc cho attacker điểm vào mà không cần khai thác vulnerability nào.
+
+---
+
+## Ví dụ thực tế
+
+**Uber 2017:** Uber để lộ bản backup AWS S3 bucket chứa dữ liệu nhạy cảm của người dùng — thông tin tài xế và hành khách — vì bucket được cấu hình public access. Attacker tải dữ liệu trực tiếp mà không cần credential. Không cần exploit, không cần bypass authentication — chỉ cần đúng URL là đủ. Đây là ví dụ điển hình cho thấy một sai sót trong deployment có thể dẫn đến compromise nghiêm trọng đến mức nào.
 
 ---
 
 ## Biểu hiện phổ biến
 
-**Default credentials:** Admin panel truy cập được với `admin/admin` hay `admin/password`. Phổ biến ở router, CMS, dashboard monitoring chưa được đổi mật khẩu sau khi cài đặt.
+**Default credential chưa được đổi:** Admin panel truy cập được với `admin/admin` hay `admin/password`. Phổ biến ở router, CMS, dashboard monitoring chưa được hardening sau khi cài đặt.
 
-**Directory listing:** Web server trả về danh sách file khi không có `index.html`. Attacker duyệt qua để tìm file backup, config, hoặc source code bị để lộ.
+**Dịch vụ và endpoint không cần thiết bị phơi ra internet:** Port 22, 3306, 5432, 6379, hay debug endpoint mở mà không có firewall. Attacker quét liên tục và thử exploit tự động.
 
-**Stack trace lộ ra ngoài:** Ứng dụng trả về full exception với tên class, tên file, số dòng khi gặp lỗi. Developer mode bật trên production là nguyên nhân phổ biến.
+**Cloud storage misconfiguration:** S3 bucket, Azure Blob, GCP bucket được cấp public read mà không có lý do. Hàng nghìn vụ rò rỉ dữ liệu lớn trong vài năm qua đến từ đây.
 
-**Security header bị thiếu:** `X-Frame-Options`, `Content-Security-Policy`, `X-Content-Type-Options` không có trong response. Mở đường cho clickjacking, XSS inline, MIME sniffing.
+**Thiếu kiểm soát truy cập API:** API không yêu cầu authentication, không có authorization, hoặc rate limit không tồn tại — bất kỳ ai cũng có thể gọi.
 
-**Cloud storage public:** S3 bucket, Azure Blob, GCS bucket được cấp quyền public read mà không có lý do. Hàng nghìn vụ rò rỉ dữ liệu lớn trong vài năm qua đến từ đây.
+**Error message lộ thông tin hệ thống:** Stack trace đầy đủ với tên class, tên file, số dòng trả về cho client. Developer mode bật trên production là nguyên nhân phổ biến nhất.
 
-**Feature không dùng vẫn bật:** Debug endpoint, Swagger UI, phpinfo(), actuator endpoint của Spring Boot — nếu không cần thì không nên expose.
+**Phần mềm, framework, container lỗi thời:** Version có CVE đã biết nhưng chưa được patch vì "đang chạy ổn". Lỗ hổng đã public → exploit tool sẵn có → bị quét tự động.
 
-**Unnecessary ports/services:** Port 22, 3306, 5432, 6379 mở ra internet mà không có firewall. Attacker quét liên tục và thử exploit tự động.
+**AI/ML endpoint không có access control:** Model inference endpoint, embedding API, hay automation service được expose mà không có authentication hay rate limit — cho phép enumerate, abuse, hoặc extract thông tin từ model.
+
+**Directory listing:** Web server trả về danh sách file khi không có `index.html`. Attacker duyệt qua để tìm file backup, config, source code bị để lộ.
 
 ---
 
 ## Ví dụ tấn công
 
-```
+```bash
 # Phát hiện phpinfo() bị để lộ
-GET /info.php HTTP/1.1
+GET /info.php
 
 # Duyệt S3 bucket public
 GET https://s3.amazonaws.com/company-backups/?list-type=2
@@ -48,10 +56,10 @@ username=admin&password=admin
 
 Spring Boot Actuator endpoint bị exposed:
 
-```
-GET /actuator/env      # lộ biến môi trường, secrets
-GET /actuator/dump     # thread dump
-GET /actuator/heapdump # toàn bộ heap — có thể chứa plaintext password
+```bash
+GET /actuator/env       # lộ biến môi trường, secrets
+GET /actuator/dump      # thread dump
+GET /actuator/heapdump  # toàn bộ heap — có thể chứa plaintext password
 ```
 
 ---
@@ -59,32 +67,33 @@ GET /actuator/heapdump # toàn bộ heap — có thể chứa plaintext password
 ## Phát hiện
 
 ```bash
-# Quét header thiếu
+# Kiểm tra security header thiếu
 curl -I https://target.com | grep -E 'X-Frame|Content-Security|X-Content'
 
 # Tìm directory listing
 curl https://target.com/uploads/
 
-# Kiểm tra default Spring Boot actuator
+# Kiểm tra Spring Boot actuator
 curl https://target.com/actuator/health
 curl https://target.com/actuator/env
 ```
 
-Công cụ tự động: **Nikto**, **Nuclei** (có template cho misconfiguration), **ScoutSuite** (cloud), **Trivy** (container image).
+Công cụ: **Nikto**, **Nuclei** (có template sẵn cho misconfiguration), **ScoutSuite** (cloud config audit), **Trivy** (container image scan).
 
 ---
 
 ## Phòng chống
 
-Không có silver bullet — hardening là một quy trình, không phải một lần làm.
+Hardening là quy trình liên tục, không phải việc làm một lần.
 
-- Tắt mọi feature không dùng đến trước khi deploy production
-- Đổi tất cả default credential ngay khi cài đặt
-- Cấu hình security header ở reverse proxy hoặc middleware
-- Audit cloud storage permission định kỳ — chặn public access ở cấp organization policy
-- Có môi trường staging giống production để catch misconfiguration sớm
-- Tự động scan misconfiguration trong CI/CD pipeline
-- Review lại config khi nâng cấp version — update đôi khi reset default về giá trị mới
+- Tăng cường cấu hình mặc định, tắt mọi tính năng và dịch vụ không dùng trước khi deploy
+- Đổi tất cả default credential ngay khi cài đặt; áp dụng xác thực mạnh và principle of least privilege trên toàn hệ thống
+- Hạn chế network exposure, phân vùng tài nguyên nhạy cảm
+- Luôn cập nhật phần mềm, framework và container với bản vá mới nhất
+- Ẩn stack trace và thông tin hệ thống khỏi error message — trả về generic error cho client
+- Audit cloud storage permission và access control định kỳ
+- Đảm bảo AI/ML endpoint và automation service có authentication và monitoring phù hợp
+- Tích hợp security config review và automated scan vào CI/CD pipeline — bắt misconfiguration từ sớm thay vì đến production
 
 ---
 
