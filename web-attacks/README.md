@@ -12,6 +12,12 @@ Tổng hợp các kiểu tấn công web phổ biến, cơ chế hoạt động 
 |---|---|
 | [OWASP Top 10 (2021)](./owasp-top10/) | 10 rủi ro bảo mật ứng dụng web phổ biến nhất |
 
+## Phishing
+
+| Series | Mô tả |
+|---|---|
+| [Phishing](./phishing/) | Kỹ thuật giả mạo, lừa đảo nhắm vào người dùng |
+
 ---
 
 ## Danh sách
