@@ -137,6 +137,42 @@ testssl.sh https://target.com
 
 ---
 
+## Lab thực hành
+
+"Secure Document Viewer" tại `http://10.48.152.101:5004/` — ứng dụng hiển thị tài liệu mã hóa, tuyên bố chỉ authorized personnel mới giải mã được.
+
+![Server homepage](images/README/as04-server-homepage.png)
+
+**Lỗ hổng 1 — Key hardcoded trong client-side JS:** Trang load `decrypt.js` qua `<script src="/static/js/decrypt.js">`. Mở file đó trong browser là thấy toàn bộ secret.
+
+![HTML source với script tag](images/README/as04-source-code.png)
+
+**Lỗ hổng 2 — ECB mode:** `decrypt.js` lộ hai vấn đề cùng lúc — key hardcoded và chế độ mã hóa yếu.
+
+![decrypt.js với hardcoded key và ECB mode](images/README/as04-hardcoded-key.png)
+
+```
+SECRET_KEY       = "my-secret-key-16"   ← hardcoded, visible với mọi người dùng
+ENCRYPTION_MODE  = "ECB"                ← mode yếu, không che pattern
+KEY_SIZE         = 128
+```
+
+**Khai thác:** Dùng key và mode lấy từ source → decrypt ciphertext:
+
+```powershell
+$key = [System.Text.Encoding]::UTF8.GetBytes("my-secret-key-16")
+$ct  = [System.Convert]::FromBase64String("<ciphertext từ trang>")
+$aes = [System.Security.Cryptography.Aes]::Create()
+$aes.Key = $key; $aes.Mode = "ECB"; $aes.Padding = "PKCS7"
+[System.Text.Encoding]::UTF8.GetString($aes.CreateDecryptor().TransformFinalBlock($ct, 0, $ct.Length))
+```
+
+Kết quả: `CONFIDENTIAL: The admin password is 'admin123'. Flag: THM{CRYPTO_FAILURE_H4RDCOD3D_K3Y}`
+
+Đây là minh họa hoàn hảo cho hai lỗi AS04 cùng lúc: key hardcoded trong code (ai cũng đọc được) + ECB mode (plaintext pattern không bị che). Mã hóa có tồn tại nhưng hoàn toàn vô nghĩa.
+
+---
+
 ## Tham khảo
 
 - OWASP: https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
