@@ -18,7 +18,7 @@ Nhật ký học pentest của mình. Ghi lại để ôn tập, chia sẻ phòn
 
 | Tiêu đề | Tóm tắt |
 |---|---|
-| [CVE-2026-42945 — Nginx Rift](./cve/CVE-2026-42945/) | nginx HTTP/2 use-after-free → RCE không cần xác thực |
+| [CVE-2026-42945 — Nginx Rift](./cve/CVE-2026-42945/) | nginx rewrite+set is_args mismatch → heap overflow → RCE |
 | [CVE-2026-46300 — Fragnesia](./cve/CVE-2026-46300/) | Linux kernel LPE qua page-cache write, XFRM ESP-in-TCP |
 | [CVE-2025-68613](./cve/CVE-2025-68613/) | n8n expression injection → RCE trong workflow automation |
 | [HGAT](./ai/HGAT/) | Heterogeneous Graph Attention Network — phân loại văn bản ngắn |
