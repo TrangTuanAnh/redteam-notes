@@ -86,6 +86,33 @@ Theo dõi liên tục:
 
 ---
 
+## Lab thực hành
+
+Demo Flask server mô phỏng lỗ hổng AS03 — import từ thư viện nội bộ chưa được xác minh (`lib/vulnerable_utils.py`). Script: [`app-1763304148639.py`](./app-1763304148639.py)
+
+**Mục tiêu:** Server chạy tại `http://10.48.152.101:5003/`, cung cấp API xử lý dữ liệu.
+
+![Server homepage](images/README/as03-server-homepage.png)
+
+**Lỗ hổng trong code:** Server dùng `sys.path.insert` để load thư viện từ thư mục `lib/` cục bộ — không có signature check, không có integrity verification. Bất kỳ file nào trong `lib/` đều được tin tưởng hoàn toàn.
+
+![Vulnerable import](images/README/as03-vulnerable-import.png)
+
+**Khai thác:** Gửi `{"data": "debug"}` tới `/api/process` kích hoạt hàm `debug_info()` từ `vulnerable_utils` — rò rỉ toàn bộ biến môi trường, bao gồm secrets và flag.
+
+```powershell
+Invoke-RestMethod -Uri "http://10.48.152.101:5003/api/process" -Method POST `
+  -ContentType "application/json" -Body '{"data": "debug"}'
+```
+
+![Flag captured](images/README/as03-flag-captured.png)
+
+Flag: `THM{SUPPLY_CH41N_VULN3R4B1L1TY}` — cùng với `admin_token_12345` và `internal_secret_key_2024` bị rò rỉ.
+
+Đây chính xác là kiểu tấn công XZ Utils: không cần can thiệp vào logic chính — chỉ cần kiểm soát một dependency được tin tưởng ngầm.
+
+---
+
 ## Phòng chống
 
 **Xác minh tất cả component trước khi dùng:** Thư viện, API bên thứ ba, và đặc biệt là AI model — kiểm tra nguồn gốc, maintainer, lịch sử commit trước khi đưa vào dependency.
