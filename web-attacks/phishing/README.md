@@ -10,6 +10,7 @@ Phishing là kỹ thuật tấn công phi kỹ thuật số (social engineering)
 
 | Bài | Mô tả |
 |-----|-------|
+| [Phishing — Tổng quan](./phishing-fundamentals.md) | Phân loại phishing, spear phishing, whaling và vai trò trong pentest |
 
 ---
 
