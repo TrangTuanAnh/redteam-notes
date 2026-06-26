@@ -19,6 +19,7 @@ Phòng học này tập trung vào 4 hạng mục liên quan đến lỗi kiến
 | AS04 | [Cryptographic Failures](./AS04-cryptographic-failures.md) | Lỗi mã hóa |
 | AS05 | [Injection](./AS05-injection.md) | SQL, Command, SSTI, AI Prompt Injection |
 | AS06 | [Insecure Design](./AS06-insecure-design.md) | Thiết kế không an toàn |
+| AS08 | [Software and Data Integrity Failures](./AS08-software-data-integrity.md) | Lỗi toàn vẹn phần mềm và dữ liệu |
 
 ## Danh sách 2021 (tham khảo)
 
