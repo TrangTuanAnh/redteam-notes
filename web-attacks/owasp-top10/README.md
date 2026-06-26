@@ -2,26 +2,37 @@
 
 [← Web Attacks](../README.md)
 
-OWASP Top 10 là danh sách 10 rủi ro bảo mật ứng dụng web nghiêm trọng nhất, được OWASP (Open Worldwide Application Security Project) công bố định kỳ dựa trên dữ liệu thực tế từ hàng trăm tổ chức và hàng nghìn ứng dụng. Phiên bản hiện hành là **2021**.
+OWASP Top 10 là danh sách 10 rủi ro bảo mật ứng dụng web nghiêm trọng nhất, được OWASP (Open Worldwide Application Security Project) công bố định kỳ dựa trên dữ liệu thực tế từ hàng trăm tổ chức và hàng nghìn ứng dụng. Phiên bản gần nhất là **2021**; bản **2025** có nhiều thay đổi đáng kể — đổi prefix từ `A` sang `AS`, tách "Software Supply Chain Failures" thành hạng mục riêng, và sắp xếp lại thứ tự các mục.
 
 Danh sách này không phải checklist đầy đủ — nó là bản đồ rủi ro phổ biến nhất. Hiểu từng mục giúp nhận diện lỗ hổng khi đọc code, khi pentest, và khi review kiến trúc.
 
 ---
 
-## Danh sách 2021
+## Danh sách 2025 (AS prefix)
+
+Phòng học này tập trung vào 4 hạng mục liên quan đến lỗi kiến trúc và thiết kế hệ thống:
 
 | # | Tên | Bài viết |
 |---|---|---|
-| A01 | [Broken Access Control](./A01-broken-access-control.md) | _Chưa có_ |
-| A02 | [Cryptographic Failures](./A02-cryptographic-failures.md) | _Chưa có_ |
-| A03 | [Injection](./A03-injection.md) | _Chưa có_ |
-| A04 | [Insecure Design](./A04-insecure-design.md) | _Chưa có_ |
-| A05 | [Security Misconfiguration](./A05-security-misconfiguration.md) | _Chưa có_ |
-| A06 | [Vulnerable and Outdated Components](./A06-vulnerable-components.md) | _Chưa có_ |
-| A07 | [Identification and Authentication Failures](./A07-auth-failures.md) | _Chưa có_ |
-| A08 | [Software and Data Integrity Failures](./A08-integrity-failures.md) | _Chưa có_ |
-| A09 | [Security Logging and Monitoring Failures](./A09-logging-failures.md) | _Chưa có_ |
-| A10 | [Server-Side Request Forgery](./A10-ssrf.md) | _Chưa có_ |
+| AS02 | [Security Misconfiguration](./AS02-security-misconfiguration.md) | Lỗi cấu hình bảo mật |
+| AS03 | [Software Supply Chain Failures](./AS03-supply-chain-failures.md) | Thất bại trong chuỗi cung ứng phần mềm |
+| AS04 | [Cryptographic Failures](./AS04-cryptographic-failures.md) | Lỗi mã hóa |
+| AS06 | [Insecure Design](./AS06-insecure-design.md) | Thiết kế không an toàn |
+
+## Danh sách 2021 (tham khảo)
+
+| # | Tên |
+|---|---|
+| A01 | Broken Access Control |
+| A02 | Cryptographic Failures |
+| A03 | Injection |
+| A04 | Insecure Design |
+| A05 | Security Misconfiguration |
+| A06 | Vulnerable and Outdated Components |
+| A07 | Identification and Authentication Failures |
+| A08 | Software and Data Integrity Failures |
+| A09 | Security Logging and Monitoring Failures |
+| A10 | Server-Side Request Forgery |
 
 ---
 
