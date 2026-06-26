@@ -17,6 +17,7 @@ Phòng học này tập trung vào 4 hạng mục liên quan đến lỗi kiến
 | AS02 | [Security Misconfiguration](./AS02-security-misconfiguration.md) | Lỗi cấu hình bảo mật |
 | AS03 | [Software Supply Chain Failures](./AS03-supply-chain-failures.md) | Thất bại trong chuỗi cung ứng phần mềm |
 | AS04 | [Cryptographic Failures](./AS04-cryptographic-failures.md) | Lỗi mã hóa |
+| AS05 | [Injection](./AS05-injection.md) | SQL, Command, SSTI, AI Prompt Injection |
 | AS06 | [Insecure Design](./AS06-insecure-design.md) | Thiết kế không an toàn |
 
 ## Danh sách 2021 (tham khảo)
