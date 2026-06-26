@@ -2,15 +2,11 @@
 
 [← OWASP Top 10](./README.md)
 
-**Injection** là lỗ hổng xuất hiện liên tục trong danh sách OWASP Top 10 — từng đứng số 1 nhiều năm liên tiếp và vẫn xuất hiện hai lần trong phiên bản 2025. Root cause không thay đổi dù thời gian: ứng dụng nhận input từ người dùng và đưa thẳng vào một hệ thống có thể thực thi — database, shell, template engine, hoặc AI model — mà không xử lý an toàn.
+**Injection** xuất hiện liên tục trong OWASP Top 10 — từng đứng số 1 nhiều năm và vẫn có mặt hai lần trong phiên bản 2025. Root cause đơn giản: ứng dụng nhận input từ user rồi đưa thẳng vào database, shell, template engine, hoặc AI model mà không xử lý an toàn. Data bị diễn giải như code → attacker kiểm soát được logic thực thi phía sau.
 
 ---
 
-## Injection là gì
-
-Xảy ra khi ứng dụng không tách biệt **data** và **code**. Input của user được diễn giải như một phần của lệnh thay vì là dữ liệu thuần túy. Kết quả là attacker có thể kiểm soát logic thực thi của hệ thống phía sau.
-
-Các kiểu phổ biến nhất:
+## Phân loại
 
 | Kiểu | Hệ thống bị inject | Ví dụ vector |
 |------|--------------------|--------------|
@@ -142,11 +138,11 @@ Khi AI agent có quyền thực hiện action (gửi email, gọi API, truy cậ
 
 ## Ví dụ thực tế
 
-**Equifax (2017):** SQL injection vào ứng dụng tra cứu tranh chấp — rò rỉ dữ liệu 147 triệu người Mỹ bao gồm SSN, ngày sinh, địa chỉ. Lỗ hổng tồn tại nhiều tháng trước khi bị phát hiện.
+**Equifax (2017):** SQL injection vào ứng dụng tra cứu tranh chấp — rò rỉ 147 triệu record người Mỹ gồm SSN, ngày sinh, địa chỉ. Lỗ hổng tồn tại nhiều tháng trước khi bị phát hiện.
 
-**Yahoo (2012):** SQL injection vào subdomain của Yahoo — dump ~450,000 credential dạng plaintext.
+**Yahoo (2012):** SQL injection vào subdomain — dump ~450,000 credential dạng plaintext.
 
-**Heartbleed → command injection chain (nhiều target):** Nhiều incident trong thực tế là chain nhiều lỗ hổng, với injection thường là bước đầu để có foothold.
+**Nhiều incident thực tế** là chain nhiều lỗ hổng, injection thường là bước đầu để có foothold.
 
 ---
 

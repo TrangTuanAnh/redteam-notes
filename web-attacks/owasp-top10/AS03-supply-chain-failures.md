@@ -86,6 +86,26 @@ Theo dõi liên tục:
 
 ---
 
+## Phòng chống
+
+**Xác minh tất cả component trước khi dùng:** Thư viện, API bên thứ ba, và đặc biệt là AI model — kiểm tra nguồn gốc, maintainer, lịch sử commit trước khi đưa vào dependency.
+
+**Theo dõi và vá dependency thường xuyên:** Đừng chỉ audit lúc onboard — CVE mới xuất hiện sau ngày bạn install.
+
+**Ký tên, verify và audit bản cập nhật:** Không auto-update mù. Lockfile nghiêm ngặt (`package-lock.json`, `poetry.lock`, `Cargo.lock`) — chỉ update có chủ đích.
+
+**Khóa CI/CD pipeline:** Build environment cô lập, không cho phép can thiệp từ ngoài vào artifact trong quá trình build. Verify integrity của output trước khi deploy.
+
+**Theo dõi provenance và giấy phép:** Biết mỗi component đến từ đâu, ai maintain, giấy phép là gì. SLSA framework giúp verify provenance qua toàn bộ pipeline.
+
+**Private registry với allowlist:** Dùng Artifactory hoặc Nexus, chỉ pull từ public registry qua proxy đã được scan. Giải quyết dependency confusion bằng cách scope internal package (`@company/name`) và cấu hình registry resolve scope đó chỉ từ internal.
+
+**Runtime monitoring:** Phát hiện hành vi bất thường từ dependency hoặc AI component trong lúc chạy — network call lạ, file access bất thường, memory spike.
+
+**Tích hợp supply chain risk vào SDLC:** Đánh giá rủi ro chuỗi cung ứng từ giai đoạn thiết kế, không chỉ là bước cuối trước deploy.
+
+---
+
 ## Lab thực hành
 
 Demo Flask server mô phỏng lỗ hổng AS03 — import từ thư viện nội bộ chưa được xác minh (`lib/vulnerable_utils.py`). Script: [`app-1763304148639.py`](./app-1763304148639.py)
@@ -110,26 +130,6 @@ Invoke-RestMethod -Uri "http://10.48.152.101:5003/api/process" -Method POST `
 Flag: `THM{SUPPLY_CH41N_VULN3R4B1L1TY}` — cùng với `admin_token_12345` và `internal_secret_key_2024` bị rò rỉ.
 
 Đây chính xác là kiểu tấn công XZ Utils: không cần can thiệp vào logic chính — chỉ cần kiểm soát một dependency được tin tưởng ngầm.
-
----
-
-## Phòng chống
-
-**Xác minh tất cả component trước khi dùng:** Thư viện, API bên thứ ba, và đặc biệt là AI model — kiểm tra nguồn gốc, maintainer, lịch sử commit trước khi đưa vào dependency.
-
-**Theo dõi và vá dependency thường xuyên:** Đừng chỉ audit lúc onboard — CVE mới xuất hiện sau ngày bạn install.
-
-**Ký tên, verify và audit bản cập nhật:** Không auto-update mù. Lockfile nghiêm ngặt (`package-lock.json`, `poetry.lock`, `Cargo.lock`) — chỉ update có chủ đích.
-
-**Khóa CI/CD pipeline:** Build environment cô lập, không cho phép can thiệp từ ngoài vào artifact trong quá trình build. Verify integrity của output trước khi deploy.
-
-**Theo dõi provenance và giấy phép:** Biết mỗi component đến từ đâu, ai maintain, giấy phép là gì. SLSA framework giúp verify provenance qua toàn bộ pipeline.
-
-**Private registry với allowlist:** Dùng Artifactory hoặc Nexus, chỉ pull từ public registry qua proxy đã được scan. Giải quyết dependency confusion bằng cách scope internal package (`@company/name`) và cấu hình registry resolve scope đó chỉ từ internal.
-
-**Runtime monitoring:** Phát hiện hành vi bất thường từ dependency hoặc AI component trong lúc chạy — network call lạ, file access bất thường, memory spike.
-
-**Tích hợp supply chain risk vào SDLC:** Đánh giá rủi ro chuỗi cung ứng từ giai đoạn thiết kế, không chỉ là bước cuối trước deploy.
 
 ---
 

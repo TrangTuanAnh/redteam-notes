@@ -2,9 +2,9 @@
 
 [← OWASP Top 10](./README.md)
 
-**Software and Data Integrity Failures** xảy ra khi ứng dụng tin tưởng code, bản cập nhật, hoặc dữ liệu mà không xác minh tính toàn vẹn hay nguồn gốc của chúng. Đây là lỗ hổng xuất hiện trong hai phiên bản OWASP Top 10 gần nhất — phản ánh thực tế rằng hệ sinh thái phần mềm hiện đại phụ thuộc quá nhiều vào nguồn bên ngoài mà không có cơ chế verify đủ mạnh.
+**Software and Data Integrity Failures** xảy ra khi ứng dụng tin tưởng code, bản cập nhật, hoặc dữ liệu mà không xác minh tính toàn vẹn hay nguồn gốc. Xuất hiện trong cả hai phiên bản OWASP Top 10 gần nhất.
 
-Điểm phân biệt với AS03 (Supply Chain Failures): AS03 tập trung vào dependency và thư viện bị xâm phạm; AS08 tập trung vào cơ chế verify tính toàn vẹn của artifact, data, và pipeline — tức là lỗi ở tầng trust model chứ không phải lỗi ở việc chọn dependency.
+Điểm phân biệt với AS03: AS03 tập trung vào dependency bị xâm phạm; AS08 tập trung vào cơ chế verify — lỗi ở tầng trust model, không phải lỗi ở việc chọn thư viện.
 
 ---
 
