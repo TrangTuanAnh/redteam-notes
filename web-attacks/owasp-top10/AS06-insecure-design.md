@@ -156,6 +156,34 @@ Insecure design khó phát hiện bằng automated tool vì không phải code b
 
 ---
 
+## Lab thực hành
+
+"SecureChat" tại `http://10.48.152.101:5005/` — ứng dụng nhắn tin được thiết kế "exclusively for mobile devices". Frontend chỉ là landing page, không có gì để tương tác.
+
+![SecureChat homepage](images/README/as06-server-homepage.png)
+
+**Lỗ hổng:** Backend API không có cơ chế xác thực — assumption rằng chỉ có mobile app mới gọi API. Gọi thẳng từ terminal là đủ để dump toàn bộ user list:
+
+```bash
+curl -s http://10.48.152.101:5005/api/users | python3 -m json.tool
+```
+
+![Dump user list không cần auth](images/README/as06-user-dump.png)
+
+Biết được username `admin`, gọi thẳng vào private messages của họ:
+
+```bash
+curl -s http://10.48.152.101:5005/api/messages/admin | python3 -m json.tool
+```
+
+![Flag captured từ private messages](images/README/as06-flag-captured.png)
+
+Flag: `THM{1NS3CUR3_D35IGN_4SSUMPT10N}` — lộ từ private message của admin mà không cần đăng nhập hay token gì cả.
+
+Đây là Clubhouse trong thực tế: thiết kế giả định chỉ có mobile app mới gọi API → không đặt auth ở backend → toàn bộ "private conversation" thành public với bất kỳ ai biết endpoint.
+
+---
+
 ## Tham khảo
 
 - OWASP: https://owasp.org/Top10/A04_2021-Insecure_Design/
