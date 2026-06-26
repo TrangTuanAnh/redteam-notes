@@ -71,6 +71,8 @@ So sánh với thiết kế đúng:
 
 ## Ví dụ tấn công
 
+**Clubhouse (2021):** Thiết kế ban đầu giả định người dùng chỉ tương tác qua mobile app. Nhưng backend API không có cơ chế xác thực đúng cách — bất kỳ ai cũng có thể query trực tiếp: dữ liệu user, thông tin phòng họp, kể cả các cuộc trò chuyện được gọi là "riêng tư". Khi researcher thử nghiệm, "toàn bộ tiền đề về 'private conversation' đã sụp đổ." Lỗi không nằm ở code — nằm ở assumption thiết kế rằng API chỉ được gọi từ app.
+
 **Airline seat selection — logic flaw kinh điển:**
 
 Hệ thống cho phép chọn ghế sau khi mua vé, không verify rằng ghế đang được yêu cầu thuộc về chuyến bay của user. Attacker chọn ghế của user khác trên chuyến bay khác bằng cách manipulate flight ID trong request.
@@ -92,6 +94,30 @@ GET /invoice/1235   # invoice của user khác — không có authorization chec
 ```
 
 Đây không chỉ là thiếu check — là thiết kế API expose internal ID ra ngoài mà không nghĩ đến authorization model.
+
+---
+
+## Thiết kế không an toàn trong kỷ nguyên AI
+
+AI đưa vào một lớp lỗi thiết kế mới mà các checklist truyền thống không bắt được.
+
+**Các assumption sai phổ biến:**
+- "Model sẽ hành xử đúng theo ý định" — không có gì đảm bảo điều này mà không có validation
+- "Mã do AI generate là không có lỗi" — AI-assisted code cần review như mọi code khác
+- "Internal AI service không cần authorization boundary"
+
+**Kiểu lỗi thiết kế AI-specific:**
+
+| Lỗi | Hậu quả |
+|-----|---------|
+| AI component có quyền hạn không bị giới hạn | Attacker abuse agent để thực hiện hành động ngoài scope |
+| Thiếu guardrail cho LLM và automation agent | Agent bị hijack, thực thi lệnh ngoài ý muốn |
+| Prompt injection — system prompt lẫn với user input | Attacker override context, exfiltrate hidden data |
+| Blind trust vào model output — không có validation | Hệ thống hành động dựa trên output sai hoặc bị manipulate |
+| Model lấy từ nguồn chưa kiểm chứng hoặc fine-tune trên data độc | Hidden behavior, backdoor trigger nhúng sẵn trong weight |
+| Debug/testing feature còn sót lại trong production | Attacker exploit diagnostic endpoint |
+
+**Prompt injection là ví dụ điển hình:** Khi user input được nối thẳng vào system prompt mà không có tách biệt rõ ràng, attacker có thể craft input để override instruction, thay đổi behavior, hoặc rò rỉ nội dung system prompt. Đây không phải lỗi code — là lỗi thiết kế về trust boundary giữa system context và user data.
 
 ---
 
@@ -119,6 +145,14 @@ Insecure design khó phát hiện bằng automated tool vì không phải code b
 **Fail secure:** Khi có lỗi hoặc edge case, hành vi mặc định phải là từ chối, không phải cho phép.
 
 **Không tin ngầm:** Mọi boundary đều cần authentication và authorization — internal hay external.
+
+**Với AI component:**
+- Coi mọi model là untrusted cho đến khi có bằng chứng ngược lại — validate và filter cả input lẫn output
+- Tách biệt system message khỏi user content, không cho phép user input ảnh hưởng trực tiếp đến system prompt
+- Không đưa sensitive data vào prompt trừ khi thực sự cần, và bảo vệ bằng kiểm soát nghiêm ngặt
+- Yêu cầu human review cho high-risk AI action
+- Log model provenance, monitor hành vi runtime, áp dụng differential security cho data nhạy cảm
+- Đưa AI-specific threat modeling vào thiết kế từ đầu: prompt injection, inference risk, agent abuse, supply chain compromise
 
 ---
 
