@@ -72,6 +72,10 @@ SECRET_KEY = "hardcoded-secret-1234"  # committed vào git → tồn tại mãi 
 
 Data không được lưu không thể bị đánh cắp. Nhiều hệ thống lưu CVV, full card number, hay plaintext password vì "có thể cần sau này".
 
+**AI/ML systems thiếu secret handling:**
+
+Model parameter, API key của inference service, hay input nhạy cảm đưa vào AI pipeline thường không được bảo vệ đúng cách. Prompt log, embedding lưu vào vector DB, hoặc fine-tune data chứa PII đều là bề mặt tấn công mới mà nhiều team AI bỏ qua.
+
 ---
 
 ## Ví dụ tấn công
@@ -118,12 +122,18 @@ testssl.sh https://target.com
 | Asymmetric | RSA-2048+, ECDSA P-256 | RSA-1024 |
 | Random token | CSPRNG (crypto.randomBytes) | Math.random() |
 
+**Key management:**
+- Dùng dedicated secret manager thay vì env file: Azure Key Vault, AWS KMS, HashiCorp Vault
+- Maintain inventory đầy đủ các certificate, key, và owner của chúng — không thể rotate thứ bạn không biết tồn tại
+- Rotate key định kỳ theo chu kỳ đã định, và ngay lập tức khi có nghi ngờ bị lộ
+- Xây dựng SOP cho key lifecycle: generation → distribution → rotation → revocation
+
 **Nguyên tắc:**
 - Không tự implement crypto — dùng thư viện đã được audit
-- Key và secret chỉ sống trong environment variable hoặc secret manager, không bao giờ trong code
-- Encrypt data in transit (TLS 1.2+) và at rest
+- Key và secret không bao giờ trong code hay config file commit vào git
+- Encrypt data in transit (TLS 1.3, hoặc tối thiểu TLS 1.2) và at rest
 - Không lưu data nhạy cảm nếu không có lý do rõ ràng
-- Rotate key định kỳ và khi có nghi ngờ bị lộ
+- AI model và automation agent không bao giờ expose unencrypted secret hoặc sensitive data — log, embedding, và inference input đều phải trong scope của data protection policy
 
 ---
 
