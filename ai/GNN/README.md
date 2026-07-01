@@ -1,5 +1,7 @@
 # GNN
 
+[AI](../README.md)
+
 Tên đầy đủ: Graph Neural Network
 Lĩnh vực: Deep Learning / Graph-based Learning
 Đọc trước: Bài này là nền tảng để hiểu [HGAT](../HGAT/)

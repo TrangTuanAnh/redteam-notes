@@ -1,5 +1,7 @@
 # HGAT
 
+[AI](../README.md)
+
 Tên đầy đủ: Heterogeneous Graph Attention Network
 Lĩnh vực: Graph Neural Networks / Deep Learning
 Link paper tham khảo: <https://aclanthology.org/D19-1488/>

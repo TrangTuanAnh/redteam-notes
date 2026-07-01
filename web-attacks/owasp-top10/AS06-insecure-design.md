@@ -1,6 +1,6 @@
 # AS06 — Insecure Design
 
-[← OWASP Top 10](./README.md)
+[OWASP Top 10](./README.md)
 
 **Thiết kế không an toàn** — hạng mục AS06 trong OWASP Top 10 2025. Đây là mục đáng chú ý nhất trong danh sách 2021/2025 vì nó khác về bản chất so với các mục còn lại: không phải lỗi implementation, không phải misconfiguration, không phải component lỗi thời. Đây là lỗi xuất phát từ giai đoạn thiết kế — khi cả team không ai nghĩ đến security khi đưa ra quyết định kiến trúc.
 

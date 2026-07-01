@@ -1,6 +1,6 @@
 # OWASP Top 10
 
-[← Web Attacks](../README.md)
+[Web Attacks](../README.md)
 
 OWASP Top 10 là danh sách 10 rủi ro bảo mật ứng dụng web nghiêm trọng nhất, được OWASP (Open Worldwide Application Security Project) công bố định kỳ dựa trên dữ liệu thực tế từ hàng trăm tổ chức và hàng nghìn ứng dụng. Phiên bản gần nhất là **2021**; bản **2025** có nhiều thay đổi đáng kể — đổi prefix từ `A` sang `AS`, tách "Software Supply Chain Failures" thành hạng mục riêng, và sắp xếp lại thứ tự các mục.
 

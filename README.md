@@ -10,6 +10,7 @@ Nhật ký học pentest của mình. Ghi lại để ôn tập, chia sẻ phòn
 |---|---|
 | [Web Attacks](./web-attacks/README.md) | Các kiểu tấn công web phổ biến |
 | [CVE](./cve/README.md) | Phân tích lỗ hổng CVE thực tế |
+| [Tools](./tools/README.md) | Công cụ pentest — cách dùng và vai trò trong tấn công |
 | [AI](./ai/README.md) | Mô hình, bảo mật AI và ứng dụng trong nghiên cứu |
 
 ---
@@ -18,6 +19,7 @@ Nhật ký học pentest của mình. Ghi lại để ôn tập, chia sẻ phòn
 
 | Tiêu đề | Tóm tắt |
 |---|---|
+| [Phishing](./web-attacks/phishing/) | Phishing đại trà, Spear Phishing, Whaling — vai trò trong pentest |
 | [CVE-2026-42945 — Nginx Rift](./cve/CVE-2026-42945/) | nginx rewrite+set is_args mismatch → heap overflow → RCE |
 | [CVE-2026-46300 — Fragnesia](./cve/CVE-2026-46300/) | Linux kernel LPE qua page-cache write, XFRM ESP-in-TCP |
 | [CVE-2025-68613](./cve/CVE-2025-68613/) | n8n expression injection → RCE trong workflow automation |

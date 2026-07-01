@@ -1,6 +1,6 @@
 # AS03 — Software Supply Chain Failures
 
-[← OWASP Top 10](./README.md)
+[OWASP Top 10](./README.md)
 
 **Thất bại trong chuỗi cung ứng phần mềm** xảy ra khi ứng dụng phụ thuộc vào các component, thư viện, dịch vụ hoặc model bị xâm phạm, lỗi thời, hoặc chưa được xác minh đúng cách. Điểm yếu không nằm trong code bạn viết — mà nằm trong phần mềm và công cụ bạn tin tưởng. Attacker khai thác những điểm đó để chèn code độc, bypass security, hoặc đánh cắp dữ liệu mà không cần động vào logic ứng dụng của bạn.
 

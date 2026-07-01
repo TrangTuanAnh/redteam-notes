@@ -1,6 +1,6 @@
 # Web Attacks
 
-[← Về trang chính](../README.md)
+[Trang chính](../README.md)
 
 Tổng hợp các kiểu tấn công web phổ biến, cơ chế hoạt động và cách phòng chống.
 

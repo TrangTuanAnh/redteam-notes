@@ -7,38 +7,56 @@
   <link rel="stylesheet" href="../assets/style.css">
   <style>
     .page-hero {
-      padding: 3rem var(--px) 2.5rem;
+      padding: 3.5rem var(--px) 3rem;
       max-width: var(--max-w); margin: 0 auto;
       border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
     }
+    .page-hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 320px; height: 100%;
+      background: radial-gradient(ellipse at right center, rgba(0,255,65,.05), transparent 70%);
+      pointer-events: none;
+    }
+    .page-label {
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 1rem;
+    }
+    .page-label::before { content: '// '; color: var(--accent); }
     .page-title {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 700; letter-spacing: -.02em; color: #fff;
-      margin-bottom: .5rem; line-height: 1.1;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 900; letter-spacing: -.03em; color: #fff;
+      margin-bottom: .75rem; line-height: 1.05;
     }
-    .page-title span { color: var(--accent); }
-    .page-desc { color: var(--muted); font-size: 13px; max-width: 520px; line-height: 1.7; }
+    .page-title span { color: var(--accent); text-shadow: 0 0 28px var(--accent-glow); }
+    .page-desc { color: var(--muted); font-size: 13px; max-width: 500px; line-height: 1.8; font-family: var(--sans); }
 
-    .content { padding: 3rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+    .content { padding: 3.5rem var(--px) 5rem; max-width: var(--max-w); margin: 0 auto; }
 
-    .cat-section { margin-bottom: 3rem; }
+    .cat-section { margin-bottom: 2.5rem; }
     .cat-label {
       display: inline-block; font-size: 10px; letter-spacing: .15em;
       text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
       border-left: 2px solid var(--accent); padding-left: .6rem;
     }
-    .cat-table-wrap { border: 1px solid var(--border); }
+    .cat-table-wrap { border: 1px solid var(--border); overflow: hidden; }
 
-    .entry-link { color: var(--text) !important; transition: color 150ms; }
-    .entry-link:hover { color: var(--accent) !important; text-decoration: none; }
-
-    .tag {
-      display: inline-block; padding: 1px 5px;
-      font-size: 10px; letter-spacing: .06em;
-      border: 1px solid var(--border-2); color: var(--dim);
-      border-radius: 2px; font-family: var(--mono);
-      white-space: nowrap;
+    a.row-link {
+      color: var(--accent);
+      font-size: 12px;
+      transition: text-shadow 150ms;
     }
+    a.row-link:hover { text-shadow: 0 0 10px var(--accent-glow); text-decoration: none; }
+
+    .tpl-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-size: 12px; color: var(--muted); line-height: 2.1;
+    }
+    .tpl-card .file { font-size: 10px; color: var(--dim); margin-bottom: .75rem; }
+    .tpl-card .line .hash { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -48,6 +66,7 @@
   <ul class="nav-links">
     <li><a href="index.html" class="active">Web Attacks</a></li>
     <li><a href="../cve/index.html">CVE</a></li>
+    <li><a href="../ai/index.html">AI</a></li>
   </ul>
 </nav>
 
@@ -58,6 +77,7 @@
 </div>
 
 <div class="page-hero">
+  <div class="page-label">attack techniques</div>
   <h1 class="page-title">Web <span>Attacks</span><span class="cursor"></span></h1>
   <p class="page-desc">
     Tổng hợp các kiểu tấn công web phổ biến — cơ chế hoạt động, ví dụ thực tế và cách phòng chống.
@@ -66,8 +86,7 @@
 
 <div class="content">
 
-  <!-- OWASP Top 10 -->
-  <div class="cat-section">
+  <div class="cat-section fade-in">
     <div class="sec-hd">
       <span class="cat-label">OWASP Top 10</span>
       <div class="sec-line"></div>
@@ -75,104 +94,113 @@
     <div class="cat-table-wrap">
       <table class="tbl">
         <thead>
-          <tr><th>Series</th><th>Mô tả</th><th></th></tr>
+          <tr><th>Series</th><th>Mô tả</th><th>Bài viết</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td style="font-family:var(--mono); color:var(--accent);">OWASP Top 10 — 2021</td>
-            <td>10 rủi ro bảo mật ứng dụng web phổ biến nhất theo phiên bản 2021</td>
-            <td><a href="owasp-top10/README.md" style="color:var(--accent); white-space:nowrap;">Xem →</a></td>
+            <td style="font-family:var(--mono); color:var(--accent); font-size:12px;">OWASP Top 10 — 2021</td>
+            <td style="font-family:var(--sans); font-size:12px;">10 rủi ro bảo mật ứng dụng web phổ biến nhất theo phiên bản 2021</td>
+            <td><a class="row-link" href="owasp-top10/README.md">Xem bài</a></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Injection -->
-  <div class="cat-section">
+  <div class="cat-section fade-in" style="transition-delay:60ms">
     <div class="sec-hd">
       <span class="cat-label">Injection</span>
       <div class="sec-line"></div>
     </div>
     <div class="cat-table-wrap">
-      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
-        <p>Chưa có bài viết. Tạo file trong web-attacks/ để thêm.</p>
+      <div class="empty" style="padding:1.5rem 1rem; border:none;">
+        <p>Chưa có bài viết.</p>
       </div>
     </div>
   </div>
 
-  <!-- Auth & Session -->
-  <div class="cat-section">
+  <div class="cat-section fade-in" style="transition-delay:120ms">
     <div class="sec-hd">
       <span class="cat-label">Broken Auth &amp; Session</span>
       <div class="sec-line"></div>
     </div>
     <div class="cat-table-wrap">
-      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+      <div class="empty" style="padding:1.5rem 1rem; border:none;">
         <p>Chưa có bài viết.</p>
       </div>
     </div>
   </div>
 
-  <!-- XSS -->
-  <div class="cat-section">
+  <div class="cat-section fade-in" style="transition-delay:180ms">
     <div class="sec-hd">
       <span class="cat-label">XSS &amp; Client-side</span>
       <div class="sec-line"></div>
     </div>
     <div class="cat-table-wrap">
-      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+      <div class="empty" style="padding:1.5rem 1rem; border:none;">
         <p>Chưa có bài viết.</p>
       </div>
     </div>
   </div>
 
-  <!-- SSRF / CSRF -->
-  <div class="cat-section">
+  <div class="cat-section fade-in" style="transition-delay:240ms">
     <div class="sec-hd">
       <span class="cat-label">SSRF / CSRF</span>
       <div class="sec-line"></div>
     </div>
     <div class="cat-table-wrap">
-      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+      <div class="empty" style="padding:1.5rem 1rem; border:none;">
         <p>Chưa có bài viết.</p>
       </div>
     </div>
   </div>
 
-  <!-- Logic Flaws -->
-  <div class="cat-section">
+  <div class="cat-section fade-in" style="transition-delay:300ms">
     <div class="sec-hd">
       <span class="cat-label">Logic &amp; Business Flaws</span>
       <div class="sec-line"></div>
     </div>
     <div class="cat-table-wrap">
-      <div class="empty" style="padding: 1.5rem 1rem; border: none;">
+      <div class="empty" style="padding:1.5rem 1rem; border:none;">
         <p>Chưa có bài viết.</p>
       </div>
     </div>
   </div>
 
-  <!-- Template bài viết -->
-  <div class="sec-hd" style="margin-top: 1rem;">
+  <div class="sec-hd" style="margin-top:1.5rem;">
     <h2>Cấu trúc bài viết gợi ý</h2>
     <div class="sec-line"></div>
   </div>
-  <div class="card" style="font-size:12px; color:var(--muted); line-height:2;">
-    <div style="color:var(--dim); margin-bottom:.5rem;">// template.md</div>
-    <div><span style="color:var(--accent)">#</span> Tổng quan</div>
-    <div><span style="color:var(--accent)">#</span> Cơ chế tấn công</div>
-    <div><span style="color:var(--accent)">#</span> Ví dụ thực tế / PoC</div>
-    <div><span style="color:var(--accent)">#</span> Cách phòng chống</div>
-    <div><span style="color:var(--accent)">#</span> Tham khảo</div>
+  <div class="tpl-card fade-in">
+    <div class="file">// template.md</div>
+    <div class="line"><span class="hash">#</span> Tổng quan</div>
+    <div class="line"><span class="hash">#</span> Cơ chế tấn công</div>
+    <div class="line"><span class="hash">#</span> Ví dụ thực tế / PoC</div>
+    <div class="line"><span class="hash">#</span> Cách phòng chống</div>
+    <div class="line"><span class="hash">#</span> Tham khảo</div>
   </div>
 
 </div>
 
 <footer class="footer">
   <span class="footer-note">Tất cả nội dung mang mục đích học tập và nghiên cứu bảo mật</span>
-  <a href="../index.html" style="color:var(--dim); font-size:11px;">← Về trang chính</a>
+  <a href="../index.html" style="color:var(--dim); font-size:11px;">Về trang chính</a>
 </footer>
 
+<script>
+(function () {
+  var els = document.querySelectorAll('.fade-in');
+  if (!window.IntersectionObserver) {
+    els.forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.06 });
+  els.forEach(function (el) { io.observe(el); });
+}());
+</script>
 </body>
 </html>

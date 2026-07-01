@@ -1,6 +1,6 @@
 # AS04 — Cryptographic Failures
 
-[← OWASP Top 10](./README.md)
+[OWASP Top 10](./README.md)
 
 **Lỗi mã hóa** — hạng mục AS04 trong OWASP Top 10 2025. Tên cũ trong phiên bản 2021 là "Sensitive Data Exposure" nhưng cách đặt tên đó mô tả hậu quả chứ không phải nguyên nhân. Tên mới nhấn mạnh root cause: đây là lỗi ở tầng mật mã — dùng thuật toán sai, dùng đúng thuật toán nhưng sai cách, hoặc không dùng mã hóa khi cần.
 

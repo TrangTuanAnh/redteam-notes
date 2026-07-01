@@ -1,6 +1,6 @@
 # AS08 — Software and Data Integrity Failures
 
-[← OWASP Top 10](./README.md)
+[OWASP Top 10](./README.md)
 
 **Software and Data Integrity Failures** xảy ra khi ứng dụng tin tưởng code, bản cập nhật, hoặc dữ liệu mà không xác minh tính toàn vẹn hay nguồn gốc. Xuất hiện trong cả hai phiên bản OWASP Top 10 gần nhất.
 

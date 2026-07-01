@@ -7,35 +7,49 @@
   <link rel="stylesheet" href="../assets/style.css">
   <style>
     .page-hero {
-      padding: 3rem var(--px) 2.5rem;
+      padding: 3.5rem var(--px) 3rem;
       max-width: var(--max-w); margin: 0 auto;
       border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
     }
+    .page-hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 320px; height: 100%;
+      background: radial-gradient(ellipse at right center, rgba(0,207,255,.05), transparent 70%);
+      pointer-events: none;
+    }
+    .page-label {
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 1rem;
+    }
+    .page-label::before { content: '// '; color: var(--cyan); }
     .page-title {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 700; letter-spacing: -.02em; color: #fff;
-      margin-bottom: .5rem; line-height: 1.1;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 900; letter-spacing: -.03em; color: #fff;
+      margin-bottom: .75rem; line-height: 1.05;
     }
-    .page-title span { color: var(--accent); }
-    .page-desc { color: var(--muted); font-size: 13px; max-width: 520px; line-height: 1.7; }
+    .page-title span { color: var(--cyan); text-shadow: 0 0 28px var(--cyan-glow); }
+    .page-desc { color: var(--muted); font-size: 13px; max-width: 500px; line-height: 1.8; font-family: var(--sans); }
 
-    .content { padding: 3rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+    .content { padding: 3.5rem var(--px) 5rem; max-width: var(--max-w); margin: 0 auto; }
 
     .stats-row {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
-      margin-bottom: 3rem;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem;
+      margin-bottom: 3.5rem;
     }
-    @media (max-width: 640px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .stats-row { grid-template-columns: repeat(2,1fr); } }
 
-    .stat-card {
-      border: 1px solid var(--border); background: var(--surface);
-      padding: 1rem 1.25rem;
+    .tbl-wrap { border: 1px solid var(--border); margin-bottom: 3.5rem; overflow: hidden; }
+
+    a.row-link {
+      color: var(--accent);
+      font-size: 12px;
+      transition: text-shadow 150ms;
     }
-    .stat-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: .4rem; }
-    .stat-val { font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1; }
-    .stat-val.accent { color: var(--accent); }
+    a.row-link:hover { text-shadow: 0 0 10px var(--accent-glow); text-decoration: none; }
 
-    .tbl-wrap { border: 1px solid var(--border); margin-bottom: 3rem; }
+    .stat-val.cyan { color: var(--cyan); text-shadow: 0 0 24px var(--cyan-glow); }
   </style>
 </head>
 <body>
@@ -56,6 +70,7 @@
 </div>
 
 <div class="page-hero">
+  <div class="page-label">research notes</div>
   <h1 class="page-title"><span>AI</span> Research<span class="cursor"></span></h1>
   <p class="page-desc">
     Ghi chép về AI — các mô hình, kỹ thuật tấn công, bảo mật và ứng dụng trong nghiên cứu.
@@ -64,50 +79,51 @@
 
 <div class="content">
 
-  <!-- Stats -->
   <div class="stats-row">
-    <div class="stat-card">
+    <div class="stat-card fade-in">
       <div class="stat-label">Total</div>
       <div class="stat-val">2</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card fade-in" style="transition-delay:60ms">
       <div class="stat-label">Models</div>
-      <div class="stat-val accent">2</div>
+      <div class="stat-val cyan">2</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card fade-in" style="transition-delay:120ms">
       <div class="stat-label">Attacks</div>
-      <div class="stat-val accent">0</div>
+      <div class="stat-val">0</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card fade-in" style="transition-delay:180ms">
       <div class="stat-label">Tools</div>
-      <div class="stat-val accent">0</div>
+      <div class="stat-val">0</div>
     </div>
   </div>
 
-  <!-- Entries -->
   <div class="sec-hd">
     <h2>Bài viết</h2>
     <div class="sec-line"></div>
   </div>
-  <div class="tbl-wrap">
+  <div class="tbl-wrap fade-in">
     <table class="tbl">
       <thead>
         <tr>
           <th>Tiêu đề</th>
           <th>Chủ đề</th>
+          <th>Mô tả</th>
           <th>Bài viết</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><a href="HGAT/README.md" style="color:var(--accent); font-weight:600;">HGAT</a></td>
-          <td>Models</td>
-          <td><a href="HGAT/README.md" style="color:var(--accent);">Xem bài →</a></td>
+          <td style="font-family:var(--mono); color:#e2ecf5; font-weight:700; font-size:13px;">HGAT</td>
+          <td><span class="badge badge-info">Models</span></td>
+          <td style="font-family:var(--sans); font-size:12px; max-width:340px;">Heterogeneous Graph Attention Network — phân loại văn bản ngắn bán giám sát</td>
+          <td><a class="row-link" href="HGAT/README.md">Xem bài</a></td>
         </tr>
         <tr>
-          <td><a href="GNN/README.md" style="color:var(--accent); font-weight:600;">GNN</a></td>
-          <td>Models</td>
-          <td><a href="GNN/README.md" style="color:var(--accent);">Xem bài →</a></td>
+          <td style="font-family:var(--mono); color:#e2ecf5; font-weight:700; font-size:13px;">GNN</td>
+          <td><span class="badge badge-info">Models</span></td>
+          <td style="font-family:var(--sans); font-size:12px; max-width:340px;">Graph Neural Network — nền tảng cần đọc trước HGAT</td>
+          <td><a class="row-link" href="GNN/README.md">Xem bài</a></td>
         </tr>
       </tbody>
     </table>
@@ -117,8 +133,23 @@
 
 <footer class="footer">
   <span class="footer-note">Tất cả nội dung mang mục đích học tập và nghiên cứu</span>
-  <a href="../index.html" style="color:var(--dim); font-size:11px;">← Về trang chính</a>
+  <a href="../index.html" style="color:var(--dim); font-size:11px;">Về trang chính</a>
 </footer>
 
+<script>
+(function () {
+  var els = document.querySelectorAll('.fade-in');
+  if (!window.IntersectionObserver) {
+    els.forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.06 });
+  els.forEach(function (el) { io.observe(el); });
+}());
+</script>
 </body>
 </html>

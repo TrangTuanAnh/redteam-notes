@@ -6,39 +6,251 @@
   <title>Security Notes</title>
   <link rel="stylesheet" href="assets/style.css">
   <style>
+    /* ── Hero ── */
     .hero {
-      padding: 5rem var(--px) 4rem;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #matrix-canvas {
+      position: absolute;
+      inset: 0;
+      opacity: .13;
+      pointer-events: none;
+    }
+
+    /* Radial vignette over canvas */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, transparent 30%, var(--bg) 75%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      padding: 7rem var(--px) 5rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      border: 1px solid rgba(0,255,65,.18);
+      padding: .3rem .85rem;
+      background: rgba(0,255,65,.04);
+    }
+    .hero-tag-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: tag-pulse 2.4s ease-in-out infinite;
+      box-shadow: 0 0 6px var(--accent);
+    }
+    @keyframes tag-pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .35; }
+    }
+
+    .hero-title {
+      font-size: clamp(3.2rem, 10vw, 7.5rem);
+      font-weight: 900;
+      line-height: .92;
+      letter-spacing: -.035em;
+      margin-bottom: 2.5rem;
+    }
+    .hero-title .t1 { display: block; color: #fff; }
+    .hero-title .t2 {
+      display: block;
+      background: linear-gradient(100deg, var(--accent) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 28px rgba(0,255,65,.28));
+    }
+    .hero-title .t3 {
+      display: block;
+      color: rgba(255,255,255,.08);
+      -webkit-text-stroke: 1px rgba(255,255,255,.06);
+    }
+
+    .hero-desc {
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 440px;
+      line-height: 1.85;
+      margin-bottom: 3.5rem;
+      font-family: var(--sans);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat-val {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      font-family: var(--mono);
+      display: block;
+    }
+    .hero-stat-val.c { color: var(--red); text-shadow: 0 0 24px var(--red-glow); }
+    .hero-stat-label {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-top: .35rem;
+      display: block;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem; left: var(--px);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .hero-scroll-bar {
+      width: 36px; height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      animation: scroll-slide 2.2s ease-in-out infinite;
+    }
+    @keyframes scroll-slide {
+      0%,100% { opacity: .4; transform: scaleX(1); }
+      50%      { opacity: 1;  transform: scaleX(1.4); transform-origin: left; }
+    }
+
+    /* ── Topics section ── */
+    .topics-section {
+      padding: 5.5rem var(--px) 4rem;
       max-width: var(--max-w);
       margin: 0 auto;
       border-bottom: 1px solid var(--border);
-      background-image:
-        linear-gradient(rgba(0,255,65,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,65,.025) 1px, transparent 1px);
-      background-size: 40px 40px;
-      background-position: -1px -1px;
     }
-    .hero-label {
-      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
-      color: var(--dim); margin-bottom: 1.5rem;
-    }
-    .hero-label::before { content: '# '; color: var(--accent); }
-    .hero-title {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      line-height: 1.04; letter-spacing: -.02em;
-      color: #fff; margin-bottom: 1.5rem; font-weight: 700;
-    }
-    .hero-title .hi { color: var(--accent); }
-    .hero-desc { color: var(--muted); font-size: 14px; max-width: 460px; line-height: 1.75; }
 
-    .topics-section { padding: 4rem var(--px); max-width: var(--max-w); margin: 0 auto; border-bottom: 1px solid var(--border); }
-    .topic-card { text-decoration: none !important; color: inherit; display: block; }
-    .topic-id { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
-    .topic-name { font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: -.01em; margin-bottom: .5rem; }
-    .topic-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-    .topic-meta { display: flex; gap: 1.25rem; font-size: 11px; color: var(--dim); }
-    .topic-meta strong { color: var(--accent); }
+    .topic-card {
+      text-decoration: none !important;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
 
-    .recent-section { padding: 4rem var(--px); max-width: var(--max-w); margin: 0 auto; }
+    .topic-num {
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: .875rem;
+    }
+
+    .topic-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -.02em;
+      margin-bottom: .75rem;
+      transition: color 220ms;
+    }
+    .topic-card:hover .topic-name { color: var(--accent); }
+
+    .topic-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-family: var(--sans);
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .topic-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      font-size: 11px;
+      color: var(--dim);
+    }
+    .topic-footer strong { color: var(--accent); }
+    .topic-footer-meta { display: flex; gap: 1.2rem; }
+
+    /* ── Recent posts ── */
+    .recent-section {
+      padding: 4rem var(--px) 5rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .post-list { border: 1px solid var(--border); }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.1rem 1.4rem;
+      text-decoration: none;
+      transition: background 200ms, border-left-color 200ms;
+      border-left: 2px solid transparent;
+      position: relative;
+    }
+    .post-item + .post-item { border-top: 1px solid var(--border); }
+    .post-item:hover {
+      background: var(--surface-2);
+      border-left-color: var(--accent);
+    }
+
+    .post-title {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #e2ecf5;
+      margin-bottom: .2rem;
+      letter-spacing: .01em;
+    }
+    .post-summary {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--sans);
+      line-height: 1.55;
+    }
+
+    .post-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .4rem;
+    }
+    .post-cat {
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 2px 6px;
+      border: 1px solid var(--border-2);
+    }
   </style>
 </head>
 <body>
@@ -53,16 +265,45 @@
 </nav>
 
 <section class="hero">
-  <p class="hero-label">Research / Knowledge Base</p>
-  <h1 class="hero-title">
-    SECURITY<br>
-    <span class="hi">RESEARCH</span><br>
-    NOTES<span class="cursor"></span>
-  </h1>
-  <p class="hero-desc">
-    Tổng hợp kiến thức bảo mật web — phân tích các kiểu tấn công
-    và nghiên cứu lỗ hổng CVE thực tế.
-  </p>
+  <canvas id="matrix-canvas"></canvas>
+
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Research / Knowledge Base
+    </div>
+
+    <h1 class="hero-title">
+      <span class="t1">SECURITY</span>
+      <span class="t2">RESEARCH</span>
+      <span class="t3">NOTES<span class="cursor"></span></span>
+    </h1>
+
+    <p class="hero-desc">
+      Tổng hợp kiến thức bảo mật web — phân tích các kiểu tấn công
+      và nghiên cứu lỗ hổng CVE thực tế.
+    </p>
+
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-val">4</span>
+        <span class="hero-stat-label">CVE Entries</span>
+      </div>
+      <div>
+        <span class="hero-stat-val c">3</span>
+        <span class="hero-stat-label">Critical</span>
+      </div>
+      <div>
+        <span class="hero-stat-val">2</span>
+        <span class="hero-stat-label">AI Papers</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-bar"></div>
+    <span>scroll</span>
+  </div>
 </section>
 
 <section class="topics-section">
@@ -71,41 +312,47 @@
     <div class="sec-line"></div>
   </div>
   <div class="grid-3">
-    <a class="card topic-card" href="web-attacks/index.html">
-      <div class="topic-id">01 / WEB_ATTACKS</div>
+    <a class="card topic-card fade-in" href="web-attacks/index.html">
+      <div class="topic-num">01 / WEB_ATTACKS</div>
       <div class="topic-name">Web Attacks</div>
       <p class="topic-desc">
         XSS, SQLi, SSRF, CSRF, Injection, Broken Auth
         — cơ chế hoạt động và cách khai thác.
       </p>
-      <div class="topic-meta">
-        <div>Posts: <strong>0</strong></div>
-        <div>Categories: <strong>5</strong></div>
+      <div class="topic-footer">
+        <div class="topic-footer-meta">
+          <span>Posts: <strong>0</strong></span>
+          <span>Categories: <strong>5</strong></span>
+        </div>
       </div>
     </a>
 
-    <a class="card topic-card" href="cve/index.html">
-      <div class="topic-id">02 / CVE_DATABASE</div>
+    <a class="card topic-card fade-in" href="cve/index.html" style="transition-delay:80ms">
+      <div class="topic-num">02 / CVE_DATABASE</div>
       <div class="topic-name">CVE</div>
       <p class="topic-desc">
         Phân tích lỗ hổng CVE thực tế — root cause,
         impact, exploit và patch analysis.
       </p>
-      <div class="topic-meta">
-        <div>Entries: <strong>4</strong></div>
-        <div>Critical: <strong style="color:var(--red)">3</strong></div>
+      <div class="topic-footer">
+        <div class="topic-footer-meta">
+          <span>Entries: <strong>4</strong></span>
+          <span>Critical: <strong style="color:var(--red)">3</strong></span>
+        </div>
       </div>
     </a>
 
-    <a class="card topic-card" href="ai/index.html">
-      <div class="topic-id">03 / AI_RESEARCH</div>
+    <a class="card topic-card fade-in" href="ai/index.html" style="transition-delay:160ms">
+      <div class="topic-num">03 / AI_RESEARCH</div>
       <div class="topic-name">AI</div>
       <p class="topic-desc">
         Mô hình, prompt injection, adversarial attacks
         — bảo mật AI và ứng dụng trong nghiên cứu.
       </p>
-      <div class="topic-meta">
-        <div>Posts: <strong>2</strong></div>
+      <div class="topic-footer">
+        <div class="topic-footer-meta">
+          <span>Posts: <strong>2</strong></span>
+        </div>
       </div>
     </a>
   </div>
@@ -116,55 +363,67 @@
     <h2>Bài viết gần đây</h2>
     <div class="sec-line"></div>
   </div>
-  <div style="border: 1px solid var(--border);">
-    <table class="tbl">
-      <thead>
-        <tr>
-          <th>Tiêu đề</th>
-          <th>Danh mục</th>
-          <th>Tóm tắt</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-family:var(--mono); color:var(--accent);">CVE-2026-42945</td>
-          <td style="color:var(--dim);">CVE</td>
-          <td>Nginx Rift — nginx rewrite+set is_args mismatch → heap overflow → RCE</td>
-          <td><a href="cve/CVE-2026-42945/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
-        </tr>
-        <tr>
-          <td style="font-family:var(--mono); color:var(--accent);">CVE-2026-46300</td>
-          <td style="color:var(--dim);">CVE</td>
-          <td>Fragnesia — Linux kernel LPE qua page-cache write / XFRM ESP-in-TCP</td>
-          <td><a href="cve/CVE-2026-46300/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
-        </tr>
-        <tr>
-          <td style="font-family:var(--mono); color:var(--accent);">CVE-2025-68613</td>
-          <td style="color:var(--dim);">CVE</td>
-          <td>n8n expression injection → RCE trong workflow automation</td>
-          <td><a href="cve/CVE-2025-68613/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
-        </tr>
-        <tr>
-          <td style="color:#fff; font-weight:600;">HGAT</td>
-          <td style="color:var(--dim);">AI</td>
-          <td>Heterogeneous Graph Attention Network — phân loại văn bản ngắn bán giám sát</td>
-          <td><a href="ai/HGAT/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
-        </tr>
-        <tr>
-          <td style="color:#fff; font-weight:600;">GNN</td>
-          <td style="color:var(--dim);">AI</td>
-          <td>Graph Neural Network — nền tảng cần đọc trước HGAT</td>
-          <td><a href="ai/GNN/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
-        </tr>
-        <tr>
-          <td style="font-family:var(--mono); color:var(--accent);">CVE-2024-50379</td>
-          <td style="color:var(--dim);">CVE</td>
-          <td>Apache Tomcat TOCTOU race condition → RCE qua JSP upload</td>
-          <td><a href="cve/CVE-2024-50379/README.md" style="color:var(--accent); white-space:nowrap;">Xem bài →</a></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="post-list fade-in">
+    <a class="post-item" href="cve/CVE-2026-42945/README.md">
+      <div>
+        <div class="post-title">CVE-2026-42945</div>
+        <div class="post-summary">Nginx Rift — nginx rewrite+set is_args mismatch → heap overflow → RCE</div>
+      </div>
+      <div class="post-right">
+        <span class="post-cat">CVE</span>
+        <span class="badge badge-critical">Critical</span>
+      </div>
+    </a>
+    <a class="post-item" href="cve/CVE-2026-46300/README.md">
+      <div>
+        <div class="post-title">CVE-2026-46300</div>
+        <div class="post-summary">Fragnesia — Linux kernel LPE qua page-cache write / XFRM ESP-in-TCP</div>
+      </div>
+      <div class="post-right">
+        <span class="post-cat">CVE</span>
+        <span class="badge badge-high">High</span>
+      </div>
+    </a>
+    <a class="post-item" href="cve/CVE-2025-68613/README.md">
+      <div>
+        <div class="post-title">CVE-2025-68613</div>
+        <div class="post-summary">n8n expression injection → RCE trong workflow automation</div>
+      </div>
+      <div class="post-right">
+        <span class="post-cat">CVE</span>
+        <span class="badge badge-critical">Critical</span>
+      </div>
+    </a>
+    <a class="post-item" href="ai/HGAT/README.md">
+      <div>
+        <div class="post-title">HGAT</div>
+        <div class="post-summary">Heterogeneous Graph Attention Network — phân loại văn bản ngắn bán giám sát</div>
+      </div>
+      <div class="post-right">
+        <span class="post-cat">AI</span>
+        <span class="badge badge-info">Model</span>
+      </div>
+    </a>
+    <a class="post-item" href="ai/GNN/README.md">
+      <div>
+        <div class="post-title">GNN</div>
+        <div class="post-summary">Graph Neural Network — nền tảng cần đọc trước HGAT</div>
+      </div>
+      <div class="post-right">
+        <span class="post-cat">AI</span>
+        <span class="badge badge-info">Model</span>
+      </div>
+    </a>
+    <a class="post-item" href="cve/CVE-2024-50379/README.md">
+      <div>
+        <div class="post-title">CVE-2024-50379</div>
+        <div class="post-summary">Apache Tomcat TOCTOU race condition → RCE qua JSP upload</div>
+      </div>
+      <div class="post-right">
+        <span class="post-cat">CVE</span>
+        <span class="badge badge-critical">Critical</span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -173,5 +432,68 @@
   <span>2024 — security_notes</span>
 </footer>
 
+<script>
+/* Matrix rain */
+(function () {
+  var canvas = document.getElementById('matrix-canvas');
+  var ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var chars = '01ABCDEFアイウエオカキクケコサシスセソ<>{}[]|\\/_-=+*&#$@%!?';
+  var fontSize = 13;
+  var cols = Math.floor(canvas.width / fontSize);
+  var drops = [];
+  for (var i = 0; i < cols; i++) drops[i] = Math.floor(Math.random() * -80);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(4,6,8,0.045)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + 'px monospace';
+
+    for (var i = 0; i < drops.length; i++) {
+      var ch = chars[Math.floor(Math.random() * chars.length)];
+      var x  = i * fontSize;
+      var y  = drops[i] * fontSize;
+
+      var bright = Math.random() > 0.92;
+      ctx.fillStyle = bright
+        ? 'rgba(0,255,65,0.95)'
+        : 'rgba(0,255,65,0.22)';
+      ctx.fillText(ch, x, y);
+
+      if (y > canvas.height && Math.random() > 0.972) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw, 48);
+}());
+
+/* Fade-in on scroll */
+(function () {
+  var els = document.querySelectorAll('.fade-in');
+  if (!window.IntersectionObserver) {
+    els.forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(function (el) { io.observe(el); });
+}());
+</script>
 </body>
 </html>

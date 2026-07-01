@@ -1,6 +1,6 @@
 # CVE
 
-[← Về trang chính](../README.md)
+[Trang chính](../README.md)
 
 Phân tích các lỗ hổng CVE thực tế — root cause, cơ chế khai thác và cách khắc phục.
 

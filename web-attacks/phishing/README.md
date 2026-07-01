@@ -1,6 +1,6 @@
 # Phishing
 
-[← Web Attacks](../README.md)
+[Web Attacks](../README.md)
 
 **Phishing** là tấn công social engineering — khai thác tâm lý con người thay vì lỗ hổng kỹ thuật. Attacker giả mạo danh tính đáng tin cậy (ngân hàng, IT support, đồng nghiệp cấp cao) để lừa nạn nhân cung cấp credential, cài malware, hoặc thực hiện hành động ngoài ý muốn.
 

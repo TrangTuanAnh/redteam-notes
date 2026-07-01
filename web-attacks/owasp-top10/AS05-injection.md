@@ -1,6 +1,6 @@
 # AS05 — Injection
 
-[← OWASP Top 10](./README.md)
+[OWASP Top 10](./README.md)
 
 **Injection** xuất hiện liên tục trong OWASP Top 10 — từng đứng số 1 nhiều năm và vẫn có mặt hai lần trong phiên bản 2025. Root cause đơn giản: ứng dụng nhận input từ user rồi đưa thẳng vào database, shell, template engine, hoặc AI model mà không xử lý an toàn. Data bị diễn giải như code → attacker kiểm soát được logic thực thi phía sau.
 

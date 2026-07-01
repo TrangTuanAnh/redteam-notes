@@ -1,6 +1,6 @@
 # AS02 — Security Misconfiguration
 
-[← OWASP Top 10](./README.md)
+[OWASP Top 10](./README.md)
 
 **Lỗi cấu hình bảo mật** xảy ra khi hệ thống, máy chủ hoặc ứng dụng được triển khai với các thiết lập mặc định không an toàn, cài đặt chưa đầy đủ, hoặc dịch vụ bị lộ ra ngoài không cần thiết. Đây không phải lỗi trong code — mà là sai sót trong cách môi trường, phần mềm hoặc mạng được thiết lập. Và chính sự phân biệt đó khiến nó dễ bị bỏ qua: developer không thấy vấn đề khi đọc code vì vấn đề không nằm trong code.
 
